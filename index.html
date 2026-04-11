@@ -51,39 +51,85 @@
       cursor: none;
     }
 
+    /* ═══════════════════════════════════════
+   PRELOADER
+   ═══════════════════════════════════════ */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: #0a1628;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    #preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    #preloader img {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      animation: preloaderPulse 1.6s ease-in-out infinite;
+    }
+
+    #preloader .loader-bar {
+      margin-top: 28px;
+      width: 120px;
+      height: 3px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+    }
+
+    #preloader .loader-bar-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, #3b82f6, #60a5fa);
+      animation: loaderFill 1.8s ease-in-out forwards;
+    }
+
+    @keyframes preloaderPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+        opacity: 0.9;
+      }
+
+      50% {
+        transform: scale(1.06);
+        opacity: 1;
+      }
+    }
+
+    @keyframes loaderFill {
+      0% {
+        width: 0%;
+      }
+
+      60% {
+        width: 70%;
+      }
+
+      100% {
+        width: 100%;
+      }
+    }
+
     a {
       text-decoration: none;
       color: inherit;
     }
 
-    #preloader {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      background-color: var(--white);
-      /* Matches video background if it's dark */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      /* Ensures it stays on top of everything */
-      transition: opacity 0.5s ease;
-    }
 
-    #preloader-video {
-      width: 50vw;
-      height: 50vh;
-      object-fit: contain;
-    }
-
-    /* Class to hide the loader */
-    .loader-hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
 
     /* ═══════════════════════════════════════
   CUSTOM CURSOR
@@ -280,8 +326,7 @@
 
     .hero {
       position: relative;
-      height: 100vh;
-      min-height: 620px;
+      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -2283,6 +2328,7 @@
 
     .hero {
       min-height: 100svh;
+      height: auto;
       padding: 140px 28px 72px;
       align-items: stretch;
     }
@@ -2338,7 +2384,6 @@
     }
 
     .hero-h1 {
-      max-width: 7ch;
       font-size: clamp(4.3rem, 9vw, 8.8rem);
       line-height: 0.84;
       letter-spacing: 0.01em;
@@ -2826,8 +2871,13 @@
       }
 
       .hero {
+        height: auto;
         min-height: auto;
         padding: 108px 18px 30px;
+      }
+
+      .hero-h1 {
+        font-size: clamp(3rem, 10vw, 4.5rem);
       }
 
       .hero-content {
@@ -2907,10 +2957,10 @@
 
 <body>
   <div id="preloader">
-    <video autoplay muted playsinline id="preloader-video">
-      <source src="load.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
+    <img src="l.jpg" alt="TripPanther">
+    <div class="loader-bar">
+      <div class="loader-bar-fill"></div>
+    </div>
   </div>
 
   <div id="cursor"></div>
@@ -4176,35 +4226,9 @@
     }
   </script>
   <script>
-    (function () {
-      const loader = document.getElementById("preloader");
-      const video = document.getElementById("preloader-video");
-      let pageLoaded = false;
-      let videoEnded = false;
-
-      function hideLoader() {
-        if (pageLoaded && videoEnded) {
-          loader.classList.add("loader-hidden");
-        }
-      }
-
-      window.addEventListener("load", () => {
-        pageLoaded = true;
-        hideLoader();
-      });
-
-      video.onended = () => {
-        videoEnded = true;
-        hideLoader();
-      };
-
-      // Safety timeout: hide after 10 seconds anyway if it gets stuck
-      setTimeout(() => {
-        pageLoaded = true;
-        videoEnded = true;
-        hideLoader();
-      }, 10000);
-    })();
+    window.addEventListener('load', () => {
+      setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 2000);
+    });
   </script>
 
 </body>
