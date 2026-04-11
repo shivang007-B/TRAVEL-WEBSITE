@@ -51,79 +51,6 @@
       cursor: none;
     }
 
-    /* ═══════════════════════════════════════
-   PRELOADER
-   ═══════════════════════════════════════ */
-    #preloader {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      background: #0a1628;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-    }
-
-    #preloader.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    #preloader img {
-      width: 140px;
-      height: 140px;
-      object-fit: contain;
-      animation: preloaderPulse 1.6s ease-in-out infinite;
-    }
-
-    #preloader .loader-bar {
-      margin-top: 28px;
-      width: 120px;
-      height: 3px;
-      border-radius: 3px;
-      background: rgba(255, 255, 255, 0.1);
-      overflow: hidden;
-    }
-
-    #preloader .loader-bar-fill {
-      width: 0%;
-      height: 100%;
-      border-radius: 3px;
-      background: linear-gradient(90deg, #3b82f6, #60a5fa);
-      animation: loaderFill 1.8s ease-in-out forwards;
-    }
-
-    @keyframes preloaderPulse {
-
-      0%,
-      100% {
-        transform: scale(1);
-        opacity: 0.9;
-      }
-
-      50% {
-        transform: scale(1.06);
-        opacity: 1;
-      }
-    }
-
-    @keyframes loaderFill {
-      0% {
-        width: 0%;
-      }
-
-      60% {
-        width: 70%;
-      }
-
-      100% {
-        width: 100%;
-      }
-    }
-
     a {
       text-decoration: none;
       color: inherit;
@@ -2042,15 +1969,7 @@
       color: var(--teal);
     }
 
-    /* ═══════════════════════════════════════
-  3D PARTICLE CANVAS
-  ═══════════════════════════════════════ */
-    #particle-canvas {
-      position: absolute;
-      inset: 0;
-      z-index: 2;
-      pointer-events: none;
-    }
+
 
     /* ═══════════════════════════════════════
   RESPONSIVE
@@ -2955,869 +2874,294 @@
   </style>
 </head>
 
-<body>
-  <div id="preloader">
-    <img src="l.jpg" alt="TripPanther">
-    <div class="loader-bar">
-      <div class="loader-bar-fill"></div>
-    </div>
+
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<!-- ═══════ NAV ═══════ -->
+<nav id="nav">
+  <div class="nav-logo" onclick="showPage('home')">
+    <div class="nav-logo-icon"><img src="l.jpg" alt="TP"
+        style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></div>
+    <span class="nav-brand">Trip<em>Panther</em></span>
   </div>
+  <button class="nav-menu-btn" type="button" aria-label="Toggle navigation" aria-expanded="false" onclick="toggleNav()">
+    <span></span>
+    <span></span>
+  </button>
+  <div class="nav-links">
+    <a data-page="home" onclick="showPage('home')" class="act">Home</a>
+    <a data-page="destinations" onclick="showPage('destinations')">Destinations</a>
+    <a data-page="packages" onclick="showPage('packages')">Packages</a>
+    <a data-page="gallery" onclick="showPage('gallery')">Gallery</a>
+    <a data-page="reviews" onclick="showPage('reviews')">Reviews</a>
+    <a data-page="contact" onclick="showPage('contact')">Contact</a>
+  </div>
+  <button class="nav-wa" onclick="showPage('contact')">Plan My Trip</button>
+</nav>
 
-  <div id="cursor"></div>
-  <div id="cursor-ring"></div>
-
-  <!-- ═══════ NAV ═══════ -->
-  <nav id="nav">
-    <div class="nav-logo" onclick="showPage('home')">
-      <div class="nav-logo-icon"><img src="l.jpg" alt="TP"
-          style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></div>
-      <span class="nav-brand">Trip<em>Panther</em></span>
-    </div>
-    <button class="nav-menu-btn" type="button" aria-label="Toggle navigation" aria-expanded="false"
-      onclick="toggleNav()">
-      <span></span>
-      <span></span>
-    </button>
-    <div class="nav-links">
-      <a data-page="home" onclick="showPage('home')" class="act">Home</a>
-      <a data-page="destinations" onclick="showPage('destinations')">Destinations</a>
-      <a data-page="packages" onclick="showPage('packages')">Packages</a>
-      <a data-page="gallery" onclick="showPage('gallery')">Gallery</a>
-      <a data-page="reviews" onclick="showPage('reviews')">Reviews</a>
-      <a data-page="contact" onclick="showPage('contact')">Contact</a>
-    </div>
-    <button class="nav-wa" onclick="showPage('contact')">Plan My Trip</button>
-  </nav>
-
-  <!-- ═══════════════════════════════════════════════════════
+<!-- ═══════════════════════════════════════════════════════
      PAGE 1: HOME
 ═══════════════════════════════════════════════════════ -->
-  <div class="page active" id="page-home">
+<div class="page active" id="page-home">
 
-    <!-- HERO -->
-    <section class="hero">
-      <!-- BG slides -->
-      <div class="hero-slide-bg" id="slide-bg"
-        style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=1920')">
-      </div>
-      <!-- Particle canvas -->
-      <canvas id="particle-canvas"></canvas>
-      <div class="hero-overlay"></div>
-
-      <div class="hero-content">
-        <div class="hero-copy">
-          <div class="hero-pill">Curated departures. Elevated experiences.</div>
-          <div class="hero-eyebrow">Premium mountain journeys for the bold</div>
-          <h1 class="hero-h1">
-            Travel<br>
-            <span>Beyond Ordinary</span>
-          </h1>
-          <p class="hero-sub">TripPanther turns group trips, custom escapes, and Himalayan circuits into a full-blown
-            experience. Strong routes, stylish stays, smooth coordination, and the kind of energy people remember long
-            after the last stop.</p>
-          <div class="hero-btns">
-            <button class="btn-primary" onclick="showPage('packages')">See Signature Trips</button>
-            <button class="btn-outline" onclick="showPage('contact')">Build a Custom Plan</button>
-          </div>
-          <div class="hero-highlights">
-            <div class="hero-highlight">
-              <strong>4.7/5 rating</strong>
-              <span>Traveler-backed reviews across curated mountain departures.</span>
-            </div>
-            <div class="hero-highlight">
-              <strong>From ₹7,000</strong>
-              <span>Accessible packages without sacrificing the visual and on-ground experience.</span>
-            </div>
-            <div class="hero-highlight">
-              <strong>Ex-Delhi weekly</strong>
-              <span>Reliable departures with fast support before, during, and after the trip.</span>
-            </div>
-          </div>
-        </div>
-
-        <aside class="hero-panel">
-          <div class="hero-showcase">
-            <img src="d.jpg" alt="TripPanther destination showcase">
-            <div class="hero-showcase-badge">Featured circuit</div>
-            <div class="hero-showcase-copy">
-              <h3>Manali to Kasol</h3>
-              <p>Designed for travelers who want mountain air, night energy, cinematic pit stops, and a trip that feels
-                premium without feeling stiff.</p>
-            </div>
-          </div>
-          <div class="hero-proof">
-            <div class="hero-proof-item">
-              <strong>350+ trips completed</strong>
-              <span>High-volume operations with a boutique feel and close coordination.</span>
-            </div>
-            <div class="hero-proof-item">
-              <strong>4.4K social community</strong>
-              <span>An audience built on repeat travelers, referrals, and live trip energy.</span>
-            </div>
-            <div class="hero-proof-item">
-              <strong>Small-group chemistry</strong>
-              <span>Better pace, better photos, and better memories than crowded generic tours.</span>
-            </div>
-            <div class="hero-proof-item">
-              <strong>Fast custom response</strong>
-              <span>Tell us the destination, vibe, and budget. We shape the route from there.</span>
-            </div>
-          </div>
-        </aside>
-      </div>
-
-      <div class="hero-scroll">
-        <div class="scroll-bar"></div>Explore
-      </div>
-      <div class="hero-slides-dots">
-        <div class="sdot active" onclick="heroSlide(0)"></div>
-        <div class="sdot" onclick="heroSlide(1)"></div>
-        <div class="sdot" onclick="heroSlide(2)"></div>
-        <div class="sdot" onclick="heroSlide(3)"></div>
-      </div>
-    </section>
-
-    <!-- STATS -->
-    <div class="stats-bar">
-      <div class="stat-cell"><span class="stat-num">4.7/5</span><span class="stat-lbl">Verified Traveler Rating</span>
-      </div>
-      <div class="stat-cell"><span class="stat-num">Rs 7K</span><span class="stat-lbl">Signature Trips From</span>
-      </div>
-      <div class="stat-cell"><span class="stat-num">350+</span><span class="stat-lbl">Departures Executed</span></div>
-      <div class="stat-cell"><span class="stat-num">4.4K</span><span class="stat-lbl">Community Following</span></div>
+  <!-- HERO -->
+  <section class="hero">
+    <!-- BG slides -->
+    <div class="hero-slide-bg" id="slide-bg"
+      style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=1920')">
     </div>
 
-    <!-- DESTINATIONS MOSAIC -->
-    <div class="dest-section">
-      <div style="padding:80px 60px 30px;max-width:1200px;margin:0 auto;">
-        <div class="reveal"><span class="stag">Where We Go</span></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-copy">
+        <div class="hero-pill">Curated departures. Elevated experiences.</div>
+        <div class="hero-eyebrow">Premium mountain journeys for the bold</div>
+        <h1 class="hero-h1">
+          Travel<br>
+          <span>Beyond Ordinary</span>
+        </h1>
+        <div class="hero-btns">
+          <button class="btn-primary" onclick="showPage('packages')">See Signature Trips</button>
+          <button class="btn-outline" onclick="showPage('contact')">Build a Custom Plan</button>
+        </div>
+        <div class="hero-highlights">
+          <div class="hero-highlight">
+            <strong>4.7/5 rating</strong>
+            <span>Traveler-backed reviews across curated mountain departures.</span>
+          </div>
+          <div class="hero-highlight">
+            <strong>From ₹7,000</strong>
+            <span>Accessible packages without sacrificing the visual and on-ground experience.</span>
+          </div>
+          <div class="hero-highlight">
+            <strong>Ex-Delhi weekly</strong>
+            <span>Reliable departures with fast support before, during, and after the trip.</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-panel">
+        <div class="hero-showcase">
+          <img src="d.jpg" alt="TripPanther destination showcase">
+          <div class="hero-showcase-badge">Featured circuit</div>
+          <div class="hero-showcase-copy">
+            <h3>Manali to Kasol</h3>
+            <p>Designed for travelers who want mountain air, night energy, cinematic pit stops, and a trip that feels
+              premium without feeling stiff.</p>
+          </div>
+        </div>
+        <div class="hero-proof">
+          <div class="hero-proof-item">
+            <strong>350+ trips completed</strong>
+            <span>High-volume operations with a boutique feel and close coordination.</span>
+          </div>
+          <div class="hero-proof-item">
+            <strong>4.4K social community</strong>
+            <span>An audience built on repeat travelers, referrals, and live trip energy.</span>
+          </div>
+          <div class="hero-proof-item">
+            <strong>Small-group chemistry</strong>
+            <span>Better pace, better photos, and better memories than crowded generic tours.</span>
+          </div>
+          <div class="hero-proof-item">
+            <strong>Fast custom response</strong>
+            <span>Tell us the destination, vibe, and budget. We shape the route from there.</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="hero-scroll">
+      <div class="scroll-bar"></div>Explore
+    </div>
+    <div class="hero-slides-dots">
+      <div class="sdot active" onclick="heroSlide(0)"></div>
+      <div class="sdot" onclick="heroSlide(1)"></div>
+      <div class="sdot" onclick="heroSlide(2)"></div>
+      <div class="sdot" onclick="heroSlide(3)"></div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-cell"><span class="stat-num">4.7/5</span><span class="stat-lbl">Verified Traveler Rating</span>
+    </div>
+    <div class="stat-cell"><span class="stat-num">Rs 7K</span><span class="stat-lbl">Signature Trips From</span>
+    </div>
+    <div class="stat-cell"><span class="stat-num">350+</span><span class="stat-lbl">Departures Executed</span></div>
+    <div class="stat-cell"><span class="stat-num">4.4K</span><span class="stat-lbl">Community Following</span></div>
+  </div>
+
+  <!-- DESTINATIONS MOSAIC -->
+  <div class="dest-section">
+    <div style="padding:80px 60px 30px;max-width:1200px;margin:0 auto;">
+      <div class="reveal"><span class="stag">Where We Go</span></div>
+      <div class="reveal d1">
+        <h2 class="sh2" style="margin-top:6px;">Choose Your <em>Next Escape</em></h2>
+      </div>
+      <div class="reveal d2">
+        <p class="sdesc">Lost in the mountains of Himachal, Kashmir's paradise, or Uttarakhand's sacred heights — pick
+          your adventure.</p>
+      </div>
+    </div>
+    <div class="dest-grid reveal">
+      <div class="dest-tile tall" onclick="showPage('destinations')">
+        <div class="dest-img"
+          style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=900')">
+        </div>
+        <div class="dest-grad"></div>
+        <div class="dest-glow"></div>
+        <div class="dest-border"></div>
+        <div class="dest-info">
+          <div class="dest-tag">Himachal Pradesh</div>
+          <div class="dest-name">Manali<br>& Kasol</div>
+          <div class="dest-sub">Mountains · Valleys · Culture</div>
+          <div class="dest-cta">Explore → </div>
+        </div>
+      </div>
+      <div class="dest-tile" onclick="showPage('destinations')">
+        <div class="dest-img" style="background-image:url(k1.jpeg)"></div>
+        <div class="dest-grad"></div>
+        <div class="dest-glow"></div>
+        <div class="dest-border"></div>
+        <div class="dest-info">
+          <div class="dest-tag">Jammu & Kashmir</div>
+          <div class="dest-name">Kashmir</div>
+          <div class="dest-sub">Paradise on Earth</div>
+          <div class="dest-cta">Explore →</div>
+        </div>
+      </div>
+      <div class="dest-tile" onclick="showPage('destinations')">
+        <div class="dest-img"
+          style="background-image:url('https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=700')">
+        </div>
+        <div class="dest-grad"></div>
+        <div class="dest-glow"></div>
+        <div class="dest-border"></div>
+        <div class="dest-info">
+          <div class="dest-tag">Uttarakhand</div>
+          <div class="dest-name">Tungnath</div>
+          <div class="dest-sub">World's Highest Shiva Temple</div>
+          <div class="dest-cta">Explore →</div>
+        </div>
+      </div>
+      <div class="dest-tile" onclick="showPage('destinations')">
+        <div class="dest-img"
+          style="background-image:url('https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&q=80&w=700')">
+        </div>
+        <div class="dest-grad"></div>
+        <div class="dest-glow"></div>
+        <div class="dest-border"></div>
+        <div class="dest-info">
+          <div class="dest-tag">Himachal Pradesh</div>
+          <div class="dest-name">Shimla</div>
+          <div class="dest-sub">Colonial Hill Station</div>
+          <div class="dest-cta">Explore →</div>
+        </div>
+      </div>
+      <div class="dest-tile" onclick="showPage('destinations')">
+        <div class="dest-img" style="background-image:url(u.webp)">
+        </div>
+        <div class="dest-grad"></div>
+        <div class="dest-glow"></div>
+        <div class="dest-border"></div>
+        <div class="dest-info">
+          <div class="dest-tag">Rajasthan</div>
+          <div class="dest-name">Udaipur</div>
+          <div class="dest-sub">City of Lakes · Heritage</div>
+          <div class="dest-cta">Explore →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <section class="section services-section">
+    <div class="section-inner">
+      <div class="reveal"><span class="stag">Trips Built for Your Vibe</span></div>
+      <div
+        style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:6px;">
         <div class="reveal d1">
-          <h2 class="sh2" style="margin-top:6px;">Choose Your <em>Next Escape</em></h2>
+          <h2 class="sh2">What We <em>Offer</em></h2>
         </div>
-        <div class="reveal d2">
-          <p class="sdesc">Lost in the mountains of Himachal, Kashmir's paradise, or Uttarakhand's sacred heights — pick
-            your adventure.</p>
-        </div>
+        <div class="reveal d2"><button class="btn-outline" style="font-size:.75rem;" onclick="showPage('packages')">All
+            Packages →</button></div>
       </div>
-      <div class="dest-grid reveal">
-        <div class="dest-tile tall" onclick="showPage('destinations')">
-          <div class="dest-img"
-            style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=900')">
-          </div>
-          <div class="dest-grad"></div>
-          <div class="dest-glow"></div>
-          <div class="dest-border"></div>
-          <div class="dest-info">
-            <div class="dest-tag">Himachal Pradesh</div>
-            <div class="dest-name">Manali<br>& Kasol</div>
-            <div class="dest-sub">Mountains · Valleys · Culture</div>
-            <div class="dest-cta">Explore → </div>
-          </div>
+      <div class="services-grid" style="margin-top:40px;">
+        <div class="svc-card reveal">
+          <div class="svc-icon"></div>
+          <div class="svc-tag">Most Popular</div>
+          <div class="svc-name">Group Mountain Trips</div>
+          <div class="svc-desc">Meet like-minded travellers. Fixed departures every week. Manali, Kasol, Kashmir — all
+            curated, all hassle-free.</div>
+          <div class="svc-price">₹7,000 <sub>/person ex-Delhi</sub></div>
         </div>
-        <div class="dest-tile" onclick="showPage('destinations')">
-          <div class="dest-img" style="background-image:url(k1.jpeg)"></div>
-          <div class="dest-grad"></div>
-          <div class="dest-glow"></div>
-          <div class="dest-border"></div>
-          <div class="dest-info">
-            <div class="dest-tag">Jammu & Kashmir</div>
-            <div class="dest-name">Kashmir</div>
-            <div class="dest-sub">Paradise on Earth</div>
-            <div class="dest-cta">Explore →</div>
-          </div>
+        <div class="svc-card reveal d1">
+          <div class="svc-icon"></div>
+          <div class="svc-tag">Bestseller</div>
+          <div class="svc-name">Honeymoon Packages</div>
+          <div class="svc-desc">Private, romantic getaways to Shimla, Manali, Kashmir, and Udaipur. Handpicked stays,
+            personalised itinerary.</div>
+          <div class="svc-price">₹12,000 <sub>/couple</sub></div>
         </div>
-        <div class="dest-tile" onclick="showPage('destinations')">
-          <div class="dest-img"
-            style="background-image:url('https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=700')">
-          </div>
-          <div class="dest-grad"></div>
-          <div class="dest-glow"></div>
-          <div class="dest-border"></div>
-          <div class="dest-info">
-            <div class="dest-tag">Uttarakhand</div>
-            <div class="dest-name">Tungnath</div>
-            <div class="dest-sub">World's Highest Shiva Temple</div>
-            <div class="dest-cta">Explore →</div>
-          </div>
+        <div class="svc-card reveal d2">
+          <div class="svc-icon"></div>
+          <div class="svc-tag">Family</div>
+          <div class="svc-name">Family Tours</div>
+          <div class="svc-desc">Comfortable, safe, fun — family packages with kid-friendly stays, easy terrain, and
+            expert planning from start to end.</div>
+          <div class="svc-price">₹9,500 <sub>/person</sub></div>
         </div>
-        <div class="dest-tile" onclick="showPage('destinations')">
-          <div class="dest-img"
-            style="background-image:url('https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&q=80&w=700')">
-          </div>
-          <div class="dest-grad"></div>
-          <div class="dest-glow"></div>
-          <div class="dest-border"></div>
-          <div class="dest-info">
-            <div class="dest-tag">Himachal Pradesh</div>
-            <div class="dest-name">Shimla</div>
-            <div class="dest-sub">Colonial Hill Station</div>
-            <div class="dest-cta">Explore →</div>
-          </div>
+        <div class="svc-card reveal">
+          <div class="svc-icon"></div>
+          <div class="svc-tag">Heritage</div>
+          <div class="svc-name">Heritage Tours</div>
+          <div class="svc-desc">Rajasthan, Udaipur, Mount Abu — explore India's royal history with curated itineraries
+            and local expertise.</div>
+          <div class="svc-price">₹8,500 <sub>/person</sub></div>
         </div>
-        <div class="dest-tile" onclick="showPage('destinations')">
-          <div class="dest-img" style="background-image:url(u.webp)">
-          </div>
-          <div class="dest-grad"></div>
-          <div class="dest-glow"></div>
-          <div class="dest-border"></div>
-          <div class="dest-info">
-            <div class="dest-tag">Rajasthan</div>
-            <div class="dest-name">Udaipur</div>
-            <div class="dest-sub">City of Lakes · Heritage</div>
-            <div class="dest-cta">Explore →</div>
-          </div>
+        <div class="svc-card reveal d1">
+          <div class="svc-icon"></div>
+          <div class="svc-tag">Seasonal</div>
+          <div class="svc-name">Beach Holidays</div>
+          <div class="svc-desc">Goa, Andaman, Kerala — sun, sand, sea. Group departures or private getaways, we handle
+            everything.</div>
+          <div class="svc-price">₹10,000 <sub>/person</sub></div>
+        </div>
+        <div class="svc-card reveal d2">
+          <div class="svc-icon"></div>
+          <div class="svc-tag">Custom</div>
+          <div class="svc-name">Custom Itinerary</div>
+          <div class="svc-desc">You dream it, we build it. Fully personalised trip planning from destination selection
+            to on-ground support.</div>
+          <div class="svc-price">Get Quote <sub>via WhatsApp</sub></div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- SERVICES -->
-    <section class="section services-section">
-      <div class="section-inner">
-        <div class="reveal"><span class="stag">Trips Built for Your Vibe</span></div>
-        <div
-          style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:6px;">
-          <div class="reveal d1">
-            <h2 class="sh2">What We <em>Offer</em></h2>
-          </div>
-          <div class="reveal d2"><button class="btn-outline" style="font-size:.75rem;"
-              onclick="showPage('packages')">All Packages →</button></div>
+  <!-- TESTIMONIALS (preview 3) -->
+  <section class="section testi-section">
+    <div class="section-inner">
+      <div class="reveal"><span class="stag">Trusted Journeys</span></div>
+      <div
+        style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:6px;">
+        <div class="reveal d1">
+          <h2 class="sh2">What Travellers <em>Say</em></h2>
+          <p class="sdesc" style="margin-top:8px;">Rated 4.7 / 5 across 72 verified reviews. Luxury, Comfort, Trust —
+            That's TripPanther.</p>
         </div>
-        <div class="services-grid" style="margin-top:40px;">
-          <div class="svc-card reveal">
-            <div class="svc-icon"></div>
-            <div class="svc-tag">Most Popular</div>
-            <div class="svc-name">Group Mountain Trips</div>
-            <div class="svc-desc">Meet like-minded travellers. Fixed departures every week. Manali, Kasol, Kashmir — all
-              curated, all hassle-free.</div>
-            <div class="svc-price">₹7,000 <sub>/person ex-Delhi</sub></div>
-          </div>
-          <div class="svc-card reveal d1">
-            <div class="svc-icon"></div>
-            <div class="svc-tag">Bestseller</div>
-            <div class="svc-name">Honeymoon Packages</div>
-            <div class="svc-desc">Private, romantic getaways to Shimla, Manali, Kashmir, and Udaipur. Handpicked stays,
-              personalised itinerary.</div>
-            <div class="svc-price">₹12,000 <sub>/couple</sub></div>
-          </div>
-          <div class="svc-card reveal d2">
-            <div class="svc-icon"></div>
-            <div class="svc-tag">Family</div>
-            <div class="svc-name">Family Tours</div>
-            <div class="svc-desc">Comfortable, safe, fun — family packages with kid-friendly stays, easy terrain, and
-              expert planning from start to end.</div>
-            <div class="svc-price">₹9,500 <sub>/person</sub></div>
-          </div>
-          <div class="svc-card reveal">
-            <div class="svc-icon"></div>
-            <div class="svc-tag">Heritage</div>
-            <div class="svc-name">Heritage Tours</div>
-            <div class="svc-desc">Rajasthan, Udaipur, Mount Abu — explore India's royal history with curated itineraries
-              and local expertise.</div>
-            <div class="svc-price">₹8,500 <sub>/person</sub></div>
-          </div>
-          <div class="svc-card reveal d1">
-            <div class="svc-icon"></div>
-            <div class="svc-tag">Seasonal</div>
-            <div class="svc-name">Beach Holidays</div>
-            <div class="svc-desc">Goa, Andaman, Kerala — sun, sand, sea. Group departures or private getaways, we handle
-              everything.</div>
-            <div class="svc-price">₹10,000 <sub>/person</sub></div>
-          </div>
-          <div class="svc-card reveal d2">
-            <div class="svc-icon"></div>
-            <div class="svc-tag">Custom</div>
-            <div class="svc-name">Custom Itinerary</div>
-            <div class="svc-desc">You dream it, we build it. Fully personalised trip planning from destination selection
-              to on-ground support.</div>
-            <div class="svc-price">Get Quote <sub>via WhatsApp</sub></div>
-          </div>
-        </div>
+        <div class="reveal d2"><button class="btn-outline" style="font-size:.75rem;" onclick="showPage('reviews')">All
+            Reviews →</button></div>
       </div>
-    </section>
-
-    <!-- TESTIMONIALS (preview 3) -->
-    <section class="section testi-section">
-      <div class="section-inner">
-        <div class="reveal"><span class="stag">Trusted Journeys</span></div>
-        <div
-          style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-top:6px;">
-          <div class="reveal d1">
-            <h2 class="sh2">What Travellers <em>Say</em></h2>
-            <p class="sdesc" style="margin-top:8px;">Rated 4.7 / 5 across 72 verified reviews. Luxury, Comfort, Trust —
-              That's TripPanther.</p>
-          </div>
-          <div class="reveal d2"><button class="btn-outline" style="font-size:.75rem;" onclick="showPage('reviews')">All
-              Reviews →</button></div>
-        </div>
-        <div class="testi-grid" style="margin-top:40px;">
-          <div class="testi-card reveal">
-            <div class="testi-stars">★★★★★</div>
-            <div class="testi-q">TripPanther planned our Manali trip and it was absolutely perfect. The group was
-              amazing, the stays were beyond what we expected. Already booked Kashmir next!</div>
-            <div class="testi-author">
-              <div class="tav">AK</div>
-              <div>
-                <div class="tname">Ankita Khanna</div>
-                <div class="tloc">Delhi — Manali Group Trip</div>
-              </div>
-            </div>
-          </div>
-          <div class="testi-card reveal d1">
-            <div class="testi-stars">★★★★★</div>
-            <div class="testi-q">Booked a honeymoon package to Shimla + Manali. Everything was taken care of — hotel,
-              cab, activities. Just had to show up. The most stress-free trip of our lives.</div>
-            <div class="testi-author">
-              <div class="tav">SM</div>
-              <div>
-                <div class="tname">Siddharth & Meera</div>
-                <div class="tloc">Mumbai — Honeymoon Package</div>
-              </div>
-            </div>
-          </div>
-          <div class="testi-card reveal d2">
-            <div class="testi-stars">★★★★☆</div>
-            <div class="testi-q">One-day trip to Manali was on fire! Checked the highlights — saw the client videos —
-              that's what convinced me. Booked immediately. No regrets at all.</div>
-            <div class="testi-author">
-              <div class="tav">RP</div>
-              <div>
-                <div class="tname">Rahul Pandey</div>
-                <div class="tloc">Noida — One Day Trip</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PROCESS -->
-    <section class="section process-section">
-      <div class="section-inner">
-        <div style="text-align:center;margin-bottom:0;">
-          <div class="reveal"><span class="stag">Simple Booking</span></div>
-          <div class="reveal d1">
-            <h2 class="sh2" style="margin-top:6px;">How Booking <em>Works</em></h2>
-          </div>
-          <div class="reveal d2">
-            <p class="sdesc" style="margin:10px auto 0;text-align:center;">DM us or call now — we respond fast. No
-              complicated forms, no waiting.</p>
-          </div>
-        </div>
-        <div class="process-steps">
-          <div class="proc-step reveal">
-            <div class="proc-num">
-              <div class="proc-icon">🗺️</div>
-            </div>
-            <div class="proc-label">Step 01</div>
-            <div class="proc-title">Choose Destination</div>
-            <div class="proc-desc">Browse our Instagram, check highlights for client videos, and pick where you want to
-              go.</div>
-          </div>
-          <div class="proc-step reveal d1">
-            <div class="proc-num">
-              <div class="proc-icon">💬</div>
-            </div>
-            <div class="proc-label">Step 02</div>
-            <div class="proc-title">WhatsApp / DM Us</div>
-            <div class="proc-desc">Send a message with your dates and group size. We respond within the hour with
-              options and pricing.</div>
-          </div>
-          <div class="proc-step reveal d2">
-            <div class="proc-num">
-              <div class="proc-icon">✅</div>
-            </div>
-            <div class="proc-label">Step 03</div>
-            <div class="proc-title">Confirm & Pay</div>
-            <div class="proc-desc">Review the itinerary, confirm inclusions, and secure your seat with a simple advance
-              payment.</div>
-          </div>
-          <div class="proc-step reveal d3">
-            <div class="proc-num">
-              <div class="proc-icon">🚀</div>
-            </div>
-            <div class="proc-label">Step 04</div>
-            <div class="proc-title">Travel & Enjoy</div>
-            <div class="proc-desc">We're on WhatsApp throughout your trip. Just show up — we handle the rest end to end.
-            </div>
-          </div>
-        </div>
-        <div style="text-align:center;margin-top:50px;" class="reveal">
-          <button class="btn-primary" onclick="showPage('contact')">Start on WhatsApp →</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="footer-inner">
-        <div class="footer-top">
-          <div>
-            <div class="footer-brand-name">Trip<em>Panther</em> ✈️</div>
-            <p class="footer-brand-p">Adventure Awaits. Discover the world with us — group trips, honeymoon packages,
-              family tours and custom itineraries. Ex-Delhi departures. WhatsApp-first booking.</p>
-            <div class="footer-socials">
-              <a class="fsoc" href="https://www.instagram.com/trippanther_" target="_blank">📸</a>
-              <a class="fsoc" onclick="showPage('contact')">💬</a>
-              <a class="fsoc" href="tel:+91">📞</a>
-            </div>
-          </div>
-          <div class="footer-col">
-            <h4>Pages</h4>
-            <a onclick="showPage('home')">Home</a>
-            <a onclick="showPage('destinations')">Destinations</a>
-            <a onclick="showPage('packages')">Packages</a>
-            <a onclick="showPage('gallery')">Gallery</a>
-            <a onclick="showPage('reviews')">Reviews</a>
-            <a onclick="showPage('contact')">Contact</a>
-          </div>
-          <div class="footer-col">
-            <h4>Destinations</h4>
-            <a onclick="showPage('destinations')">Manali & Kasol</a>
-            <a onclick="showPage('destinations')">Kashmir</a>
-            <a onclick="showPage('destinations')">Tungnath</a>
-            <a onclick="showPage('destinations')">Shimla</a>
-            <a onclick="showPage('destinations')">Udaipur</a>
-            <a onclick="showPage('destinations')">Mount Abu</a>
-          </div>
-          <div class="footer-col">
-            <h4>Contact</h4>
-            <a>Indore, Madhya Pradesh</a>
-            <a href="https://www.instagram.com/trippanther_" target="_blank">@trippanther_</a>
-            <a onclick="showPage('contact')">WhatsApp Us</a>
-            <a onclick="showPage('contact')">Send Enquiry</a>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <span class="footer-copy">© 2026 TripPanther. #WeArePanther · Adventure Awaits.</span>
-          <a href="https://www.instagram.com/trippanther_" target="_blank" class="footer-insta">Follow @trippanther_ on
-            Instagram</a>
-        </div>
-      </div>
-    </footer>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════
-     PAGE 2: DESTINATIONS
-═══════════════════════════════════════════════════════ -->
-  <div class="page" id="page-destinations">
-    <div class="page-banner">
-      <div class="page-banner-bg"
-        style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=1600')">
-      </div>
-      <div class="page-banner-lines"></div>
-      <div class="page-banner-overlay"></div>
-      <div class="page-banner-content">
-        <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer">Home</span><span
-            class="breadcrumb-sep">›</span><span class="cur">Destinations</span></div>
-        <h1 class="pb-h1">Choose Your<br><em>Next Escape</em></h1>
-        <p class="pb-sub">Lost in the mountains of Himachal, Kashmir's paradise, Uttarakhand's sacred heights & more</p>
-      </div>
-    </div>
-
-    <div class="dest-full-section">
-      <div class="dest-full-grid">
-        <div class="dfc reveal" onclick="showPage('packages')">
-          <div class="dfc-img">
-            <div class="dfc-badge">Most Booked</div><img
-              src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=700"
-              alt="Manali">
-          </div>
-          <div class="dfc-body">
-            <div class="dfc-city">Manali & Kasol</div>
-            <div class="dfc-desc">Lost in the mountains of Himachal 🏔️ — snow-capped peaks, Parvati Valley cafes, Beas
-              River walks, and the magical Rohtang Pass. Group departures every week from Delhi.</div>
-            <div class="dfc-footer"><span class="dfc-season">📅 Best: Oct–Jun</span>
-              <div class="dfc-price">₹7,000<span>/person</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="dfc reveal d1" onclick="showPage('packages')">
-          <div class="dfc-img">
-            <div class="dfc-badge">Paradise on Earth</div><img src="k1.jpeg" alt="Kashmir">
-          </div>
-          <div class="dfc-body">
-            <div class="dfc-city">Kashmir</div>
-            <div class="dfc-desc">Paradise on Earth — Dal Lake houseboats, Gulmarg gondola rides, Pahalgam meadows, and
-              the ethereal Betaab Valley. Book your trip now before seats fill up.</div>
-            <div class="dfc-footer"><span class="dfc-season">📅 Best: Apr–Oct</span>
-              <div class="dfc-price">₹11,000<span>/person</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="dfc reveal d2" onclick="showPage('packages')">
-          <div class="dfc-img">
-            <div class="dfc-badge">Spiritual Trek</div><img
-              src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=700"
-              alt="Tungnath">
-          </div>
-          <div class="dfc-body">
-            <div class="dfc-city">Tungnath, Uttarakhand</div>
-            <div class="dfc-desc">The world's highest Shiva temple at 3,680m. An epic high-altitude trek through
-              rhododendron forests, with panoramic Himalayan views. Sacred, serene, unforgettable.</div>
-            <div class="dfc-footer"><span class="dfc-season">📅 Best: May–Nov</span>
-              <div class="dfc-price">₹8,500<span>/person</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="dfc reveal" onclick="showPage('packages')">
-          <div class="dfc-img">
-            <div class="dfc-badge">Hill Station</div><img
-              src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&q=80&w=700"
-              alt="Shimla">
-          </div>
-          <div class="dfc-body">
-            <div class="dfc-city">Shimla</div>
-            <div class="dfc-desc">The Queen of Hill Stations — toy train rides, colonial-era architecture on the Mall
-              Road, apple orchards, and cool Himalayan air. Perfect for families and honeymoon couples.</div>
-            <div class="dfc-footer"><span class="dfc-season">📅 Best: Mar–Jun & Nov</span>
-              <div class="dfc-price">₹6,500<span>/person</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="dfc reveal d1" onclick="showPage('packages')">
-          <div class="dfc-img">
-            <div class="dfc-badge">Heritage</div><img src="u.webp" alt="Udaipur">
-          </div>
-          <div class="dfc-body">
-            <div class="dfc-city">Udaipur, Rajasthan</div>
-            <div class="dfc-desc">The Venice of the East — City Palace on Lake Pichola, sunset boat rides, heritage
-              havelis, and vibrant Rajasthani culture. Couples, families, and solo travellers all love it.</div>
-            <div class="dfc-footer"><span class="dfc-season">📅 Best: Oct–Mar</span>
-              <div class="dfc-price">₹9,000<span>/person</span></div>
-            </div>
-          </div>
-        </div>
-        <div class="dfc reveal d2" onclick="showPage('packages')">
-          <div class="dfc-img">
-            <div class="dfc-badge">Hill Station</div><img src="m.jpeg" alt="Mount Abu">
-          </div>
-          <div class="dfc-body">
-            <div class="dfc-city">Mount Abu, Rajasthan</div>
-            <div class="dfc-desc">Rajasthan's only hill station — Nakki Lake, Dilwara Temples, Guru Shikhar viewpoint,
-              and cool weather in the middle of the desert. Great for a Rajasthan add-on trip.</div>
-            <div class="dfc-footer"><span class="dfc-season">📅 Best: Nov–Feb</span>
-              <div class="dfc-price">₹7,500<span>/person</span></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div style="text-align:center;max-width:1200px;margin:40px auto 0;padding-bottom:20px;">
-        <button class="btn-primary" onclick="showPage('contact')">Plan My Custom Trip →</button>
-      </div>
-    </div>
-    <footer class="footer" style="padding:20px 60px;">
-      <div class="footer-inner">
-        <div class="footer-bottom" style="border-top:none;padding-top:0;"><span class="footer-copy">© 2026 TripPanther ·
-            #WeArePanther</span><a href="https://www.instagram.com/trippanther_" target="_blank"
-            class="footer-insta">@trippanther_</a></div>
-      </div>
-    </footer>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════
-     PAGE 3: PACKAGES
-═══════════════════════════════════════════════════════ -->
-  <div class="page" id="page-packages">
-    <div class="page-banner">
-      <div class="page-banner-bg"
-        style="background-image:url('https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&q=80&w=1600')">
-      </div>
-      <div class="page-banner-lines"></div>
-      <div class="page-banner-overlay"></div>
-      <div class="page-banner-content">
-        <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer">Home</span><span
-            class="breadcrumb-sep">›</span><span class="cur">Packages</span></div>
-        <h1 class="pb-h1">Trips Built<br>For Your <em>Vibe</em></h1>
-        <p class="pb-sub">Starting from ₹7,000 · Ex-Delhi · Group, Honeymoon, Family & Custom</p>
-      </div>
-    </div>
-    <div class="pkg-section">
-      <div style="max-width:1200px;margin:0 auto;">
-        <div class="filter-row">
-          <button class="ftab active" onclick="filterPkg(this,'all')">All</button>
-          <button class="ftab" onclick="filterPkg(this,'group')">Group Trips</button>
-          <button class="ftab" onclick="filterPkg(this,'honeymoon')">Honeymoon</button>
-          <button class="ftab" onclick="filterPkg(this,'family')">Family</button>
-          <button class="ftab" onclick="filterPkg(this,'heritage')">Heritage</button>
-          <button class="ftab" onclick="filterPkg(this,'beach')">Beach</button>
-        </div>
-      </div>
-      <div class="pkg-grid" style="max-width:1200px;margin:0 auto;">
-        <div class="pkg-card" data-type="group">
-          <div class="pkg-img">
-            <div class="pkg-badge">Group</div><img
-              src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=700"
-              alt="Manali">
-          </div>
-          <div class="pkg-body">
-            <div class="pkg-name">Manali + Kasol Group Trip</div>
-            <div class="pkg-meta"><span>📅 5 Days / 4 Nights</span><span>📍 Ex-Delhi</span></div>
-            <div class="pkg-desc">Fixed weekly departure. Rohtang Pass, Solang Valley, Kasol riverside camping,
-              Kheerganga trek. Meals + stay + transport included.</div>
-            <div class="pkg-footer">
-              <div class="pkg-price">₹7,000<sub>/person</sub></div><button class="btn-book"
-                onclick="showPage('contact')">Book Now</button>
-            </div>
-          </div>
-        </div>
-        <div class="pkg-card" data-type="group">
-          <div class="pkg-img">
-            <div class="pkg-badge">Most Popular</div><img src="k1.jpeg" alt="Kashmir">
-          </div>
-          <div class="pkg-body">
-            <div class="pkg-name">Kashmir Group Tour</div>
-            <div class="pkg-meta"><span>📅 7 Days / 6 Nights</span><span>📍 Ex-Delhi</span></div>
-            <div class="pkg-desc">Paradise on Earth. Dal Lake, Gulmarg gondola, Pahalgam, Sonamarg. Houseboat stay +
-              hotel + all transport + sightseeing.</div>
-            <div class="pkg-footer">
-              <div class="pkg-price">₹11,000<sub>/person</sub></div><button class="btn-book"
-                onclick="showPage('contact')">Book Now</button>
-            </div>
-          </div>
-        </div>
-        <div class="pkg-card" data-type="group">
-          <div class="pkg-img">
-            <div class="pkg-badge">Spiritual</div><img
-              src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=700"
-              alt="Tungnath">
-          </div>
-          <div class="pkg-body">
-            <div class="pkg-name">Tungnath Trek Package</div>
-            <div class="pkg-meta"><span>📅 4 Days / 3 Nights</span><span>📍 Ex-Delhi</span></div>
-            <div class="pkg-desc">World's highest Shiva temple. Trek through rhododendron forests, Chandrashila summit,
-              Deoria Tal lake. Guided trek + camps + meals.</div>
-            <div class="pkg-footer">
-              <div class="pkg-price">₹8,500<sub>/person</sub></div><button class="btn-book"
-                onclick="showPage('contact')">Book Now</button>
-            </div>
-          </div>
-        </div>
-        <div class="pkg-card" data-type="honeymoon">
-          <div class="pkg-img">
-            <div class="pkg-badge">Honeymoon</div><img
-              src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&q=80&w=700"
-              alt="Shimla">
-          </div>
-          <div class="pkg-body">
-            <div class="pkg-name">Shimla + Manali Honeymoon</div>
-            <div class="pkg-meta"><span>📅 7 Days / 6 Nights</span><span>📍 Ex-Delhi</span></div>
-            <div class="pkg-desc">Private cab, boutique hotel stays, candlelit dinners, snowfall experiences. The
-              complete romantic Himachal honeymoon — everything arranged.</div>
-            <div class="pkg-footer">
-              <div class="pkg-price">₹22,000<sub>/couple</sub></div><button class="btn-book"
-                onclick="showPage('contact')">Book Now</button>
-            </div>
-          </div>
-        </div>
-        <div class="pkg-card" data-type="family">
-          <div class="pkg-img">
-            <div class="pkg-badge">Family</div><img src="r.webp" alt="Rajasthan">
-          </div>
-          <div class="pkg-body">
-            <div class="pkg-name">Rajasthan Family Package</div>
-            <div class="pkg-meta"><span>📅 6 Days / 5 Nights</span><span>📍 Jaipur → Udaipur</span></div>
-            <div class="pkg-desc">Forts, palaces, camel rides, cultural shows. Family-friendly, comfortable stays, AC
-              transport, expert local guides. Kids love it.</div>
-            <div class="pkg-footer">
-              <div class="pkg-price">₹9,500<sub>/person</sub></div><button class="btn-book"
-                onclick="showPage('contact')">Book Now</button>
-            </div>
-          </div>
-        </div>
-        <div class="pkg-card" data-type="heritage beach">
-          <div class="pkg-img">
-            <div class="pkg-badge">Custom</div><img src="d.jpg" alt="Custom">
-          </div>
-          <div class="pkg-body">
-            <div class="pkg-name">Your Dream Custom Trip</div>
-            <div class="pkg-meta"><span>📅 Flexible</span><span>📍 Anywhere in India</span></div>
-            <div class="pkg-desc">Tell us where you want to go. We'll build a 100% custom itinerary — dates, group size,
-              budget, preferred stays. WhatsApp us to start.</div>
-            <div class="pkg-footer">
-              <div class="pkg-price" style="font-size:1rem;font-family:var(--font-body)">Tailor-Made</div><button
-                class="btn-book" onclick="showPage('contact')">Get Quote</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <footer class="footer" style="padding:20px 60px;">
-      <div class="footer-inner">
-        <div class="footer-bottom" style="border-top:none;padding-top:0;"><span class="footer-copy">© 2026 TripPanther ·
-            #WeArePanther</span><a href="https://www.instagram.com/trippanther_" target="_blank"
-            class="footer-insta">@trippanther_</a></div>
-      </div>
-    </footer>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════
-     PAGE 4: GALLERY
-═══════════════════════════════════════════════════════ -->
-  <div class="page" id="page-gallery">
-    <div class="page-banner">
-      <div class="page-banner-bg"
-        style="background-image:url('https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&q=80&w=1600')">
-      </div>
-      <div class="page-banner-lines"></div>
-      <div class="page-banner-overlay"></div>
-      <div class="page-banner-content">
-        <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer">Home</span><span
-            class="breadcrumb-sep">›</span><span class="cur">Gallery</span></div>
-        <h1 class="pb-h1">Moments<br>From the <em>Road</em></h1>
-        <p class="pb-sub">The mountains are calling — real photos from real TripPanther journeys</p>
-      </div>
-    </div>
-    <div class="gallery-section">
-      <div style="max-width:1200px;margin:0 auto;">
-        <div style="text-align:center;margin-bottom:40px;">
-          <div class="reveal"><span class="stag">Our Photo Gallery</span></div>
-          <div class="reveal d1">
-            <h2 class="sh2" style="margin-top:6px;">Trip <em>Memories</em></h2>
-          </div>
-        </div>
-        <div class="gallery-grid reveal">
-          <div class="gallery-cell wide">
-            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=900"
-              alt="Manali">
-            <div class="gallery-overlay">
-              <div class="gallery-plus">+</div>
-            </div>
-            <div class="gallery-caption">Manali, Himachal Pradesh</div>
-          </div>
-          <div class="gallery-cell tall"><img src="k1.jpeg" alt="Kashmir">
-            <div class="gallery-overlay">
-              <div class="gallery-plus">+</div>
-            </div>
-            <div class="gallery-caption">Kashmir Valley</div>
-          </div>
-          <div class="gallery-cell"><img
-              src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=600"
-              alt="Tungnath">
-            <div class="gallery-overlay">
-              <div class="gallery-plus">+</div>
-            </div>
-            <div class="gallery-caption">Tungnath Temple</div>
-          </div>
-          <div class="gallery-cell"><img
-              src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&q=80&w=600"
-              alt="Shimla">
-            <div class="gallery-overlay">
-              <div class="gallery-plus">+</div>
-            </div>
-            <div class="gallery-caption">Shimla Snowfall</div>
-          </div>
-          <div class="gallery-cell"><img src="u.webp" alt="Udaipur">
-            <div class="gallery-overlay">
-              <div class="gallery-plus">+</div>
-            </div>
-            <div class="gallery-caption">Udaipur Lake Palace</div>
-          </div>
-          <div class="gallery-cell"><img
-              src="https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&q=80&w=600"
-              alt="Mountains">
-            <div class="gallery-overlay">
-              <div class="gallery-plus">+</div>
-            </div>
-            <div class="gallery-caption">Mountain Adventures</div>
-          </div>
-          <div class="gallery-cell"><img src="m.jpeg" alt="Mount Abu">
-            <div class="gallery-overlay">
-              <div class="gallery-plus">+</div>
-            </div>
-            <div class="gallery-caption">Mount Abu Sunset</div>
-          </div>
-          <div class="gallery-cell"><img src="r.webp" alt="Rajasthan">
-            <div class="gallery-overlay">
-              <div class="gallery-plus">+</div>
-            </div>
-            <div class="gallery-caption">Rajasthan</div>
-          </div>
-          <div class="gallery-cell tall">
-            <video src="4.mp4" autoplay muted loop playsinline></video>
-            <div class="gallery-overlay">
-              <div class="gallery-plus">+</div>
-            </div>
-            <div class="gallery-caption">Rajasthan Adventure</div>
-          </div>
-          <div class="gallery-cell tall">
-            <video src="1.mp4" autoplay muted loop playsinline></video>
-            <div class="gallery-overlay">
-              <div class="gallery-plus">+</div>
-            </div>
-            <div class="gallery-caption">Kashmir Reels</div>
-          </div>
-          <div class="gallery-cell tall">
-            <video src="2.mp4" autoplay muted loop playsinline></video>
-            <div class="gallery-overlay">
-              <div class="gallery-plus">+</div>
-            </div>
-            <div class="gallery-caption">Mountain Vibes</div>
-          </div>
-          <div class="gallery-cell tall">
-            <video src="3.mp4" autoplay muted loop playsinline></video>
-            <div class="gallery-overlay">
-              <div class="gallery-plus">+</div>
-            </div>
-            <div class="gallery-caption">Trip Panther Moments</div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="insta-strip">
-      <div class="insta-handle">📸 Follow <a href="https://www.instagram.com/trippanther_" target="_blank"
-          style="color:var(--teal);margin-left:4px;">@trippanther_</a> for daily adventures</div>
-      <p style="font-size:.78rem;color:var(--muted);margin-top:8px;">Check our highlights for real client trip videos ·
-        #TravelwithTrippanther · #WeArePanther</p>
-      <a href="https://www.instagram.com/trippanther_" target="_blank"><button class="btn-primary"
-          style="margin-top:20px;">View on Instagram →</button></a>
-    </div>
-    <footer class="footer" style="padding:20px 60px;">
-      <div class="footer-inner">
-        <div class="footer-bottom" style="border-top:none;padding-top:0;"><span class="footer-copy">© 2026 TripPanther ·
-            #WeArePanther</span><a href="https://www.instagram.com/trippanther_" target="_blank"
-            class="footer-insta">@trippanther_</a></div>
-      </div>
-    </footer>
-  </div>
-
-  <!-- ═══════════════════════════════════════════════════════
-     PAGE 5: REVIEWS
-═══════════════════════════════════════════════════════ -->
-  <div class="page" id="page-reviews">
-    <div class="page-banner">
-      <div class="page-banner-bg" style="background-image:url(d.jpg)">
-      </div>
-      <div class="page-banner-lines"></div>
-      <div class="page-banner-overlay"></div>
-      <div class="page-banner-content">
-        <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer">Home</span><span
-            class="breadcrumb-sep">›</span><span class="cur">Reviews</span></div>
-        <h1 class="pb-h1">Trusted <em>Journeys</em></h1>
-        <p class="pb-sub">Luxury, Comfort, Trust — That's TripPanther</p>
-      </div>
-    </div>
-    <div class="reviews-section">
-      <div class="rating-hero reveal">
-        <div class="rating-big">
-          <div class="rating-num">4.7</div>
-          <div class="rating-stars">★★★★☆</div>
-          <div class="rating-count">Based on 72 verified reviews</div>
-        </div>
-        <div class="rating-divider"></div>
-        <div class="rating-copy">
-          <h3>Verified Travel Operator</h3>
-          <p>TripPanther (Trippanther Tour and Travels) is a verified operator with a strong track record across group
-            trips, honeymoon packages, family tours, and heritage expeditions. Rated 4.7 across 72 reviews — our clients
-            keep coming back.</p>
-          <div class="trust-tag">✓ Verified Operator · 72 Reviews · 4.4K Instagram Followers</div>
-        </div>
-      </div>
-      <div class="reviews-grid">
+      <div class="testi-grid" style="margin-top:40px;">
         <div class="testi-card reveal">
           <div class="testi-stars">★★★★★</div>
-          <div class="testi-q">Absolutely seamless Manali group trip. Everything was arranged — pickup, hotel, food,
-            sightseeing. The group of strangers became friends by day 2. Book with TripPanther, no second thoughts.
-          </div>
+          <div class="testi-q">TripPanther planned our Manali trip and it was absolutely perfect. The group was
+            amazing, the stays were beyond what we expected. Already booked Kashmir next!</div>
           <div class="testi-author">
             <div class="tav">AK</div>
             <div>
@@ -3828,408 +3172,918 @@
         </div>
         <div class="testi-card reveal d1">
           <div class="testi-stars">★★★★★</div>
-          <div class="testi-q">Kashmir honeymoon was beyond our expectations. Dal Lake houseboat was surreal. The team
-            arranged everything from airport to airport. We didn't have to think once. Highly recommend!</div>
+          <div class="testi-q">Booked a honeymoon package to Shimla + Manali. Everything was taken care of — hotel,
+            cab, activities. Just had to show up. The most stress-free trip of our lives.</div>
           <div class="testi-author">
             <div class="tav">SM</div>
             <div>
               <div class="tname">Siddharth & Meera</div>
-              <div class="tloc">Mumbai — Kashmir Honeymoon</div>
+              <div class="tloc">Mumbai — Honeymoon Package</div>
             </div>
           </div>
         </div>
         <div class="testi-card reveal d2">
-          <div class="testi-stars">★★★★★</div>
-          <div class="testi-q">One day trip to Manali was on fire 🔥 Saw the client highlight videos and booked
-            immediately. They delivered exactly what they showed. No over-promising at all. Very trustworthy team.</div>
+          <div class="testi-stars">★★★★☆</div>
+          <div class="testi-q">One-day trip to Manali was on fire! Checked the highlights — saw the client videos —
+            that's what convinced me. Booked immediately. No regrets at all.</div>
           <div class="testi-author">
             <div class="tav">RP</div>
             <div>
               <div class="tname">Rahul Pandey</div>
-              <div class="tloc">Noida — Day Trip</div>
+              <div class="tloc">Noida — One Day Trip</div>
             </div>
-          </div>
-        </div>
-        <div class="testi-card reveal">
-          <div class="testi-stars">★★★★☆</div>
-          <div class="testi-q">Took my parents to Udaipur + Shimla combo. Family trip was very comfortable, good hotels,
-            no rush in the itinerary. Minor communication delay at one point but overall a great experience.</div>
-          <div class="testi-author">
-            <div class="tav">PJ</div>
-            <div>
-              <div class="tname">Priya Joshi</div>
-              <div class="tloc">Pune — Family Tour</div>
-            </div>
-          </div>
-        </div>
-        <div class="testi-card reveal d1">
-          <div class="testi-stars">★★★★★</div>
-          <div class="testi-q">Tungnath trek was spiritual and breathtaking. Never trekked before but the guide was
-            excellent. Camp food was surprisingly good. Will definitely do another trek with TripPanther next season.
-          </div>
-          <div class="testi-author">
-            <div class="tav">VK</div>
-            <div>
-              <div class="tname">Vikash Kumar</div>
-              <div class="tloc">Delhi — Tungnath Trek</div>
-            </div>
-          </div>
-        </div>
-        <div class="testi-card reveal d2">
-          <div class="testi-stars">★★★★★</div>
-          <div class="testi-q">Booked a custom Kasol trip for 6 friends. They customised everything perfectly within our
-            tight budget. The bonfire nights were unforgettable. Already planning Spiti Valley with them next year!
-          </div>
-          <div class="testi-author">
-            <div class="tav">MG</div>
-            <div>
-              <div class="tname">Meghna & Group</div>
-              <div class="tloc">Bengaluru — Kasol Custom Trip</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="policy-bar reveal">
-        <div class="policy-item">
-          <div class="policy-icon">🔒</div>
-          <div>
-            <div class="policy-title">Transparent Inclusions</div>
-            <div class="policy-desc">Every package listing is clear on what's included — stay, meals, transport, guide
-              fees. No hidden surprises at check-in.</div>
-          </div>
-        </div>
-        <div class="policy-item">
-          <div class="policy-icon">💰</div>
-          <div>
-            <div class="policy-title">Refund & Cancellation</div>
-            <div class="policy-desc">Cancel 10+ days before departure: 80% refund. 5–9 days: 50%. Within 5 days:
-              non-refundable. Contact us for exceptions.</div>
-          </div>
-        </div>
-        <div class="policy-item">
-          <div class="policy-icon">🛡️</div>
-          <div>
-            <div class="policy-title">Safety & Support</div>
-            <div class="policy-desc">24/7 WhatsApp support throughout your trip. Emergency contacts provided before
-              departure. Your safety is our priority.</div>
           </div>
         </div>
       </div>
     </div>
-    <div class="faq-section">
-      <div style="max-width:1200px;margin:0 auto;">
-        <div class="reveal"><span class="stag">Common Questions</span></div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section process-section">
+    <div class="section-inner">
+      <div style="text-align:center;margin-bottom:0;">
+        <div class="reveal"><span class="stag">Simple Booking</span></div>
         <div class="reveal d1">
-          <h2 class="sh2" style="margin-top:6px;">FAQ</h2>
+          <h2 class="sh2" style="margin-top:6px;">How Booking <em>Works</em></h2>
+        </div>
+        <div class="reveal d2">
+          <p class="sdesc" style="margin:10px auto 0;text-align:center;">DM us or call now — we respond fast. No
+            complicated forms, no waiting.</p>
         </div>
       </div>
-      <div class="faq-list">
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Where do trips start from?<span
-              class="faq-chevron">▾</span></button>
-          <div class="faq-a">Most of our group departures are Ex-Delhi (by bus/train). We also arrange pickup from
-            Indore and can coordinate from other cities on request. Custom trips can depart from your city.</div>
+      <div class="process-steps">
+        <div class="proc-step reveal">
+          <div class="proc-num">
+            <div class="proc-icon">🗺️</div>
+          </div>
+          <div class="proc-label">Step 01</div>
+          <div class="proc-title">Choose Destination</div>
+          <div class="proc-desc">Browse our Instagram, check highlights for client videos, and pick where you want to
+            go.</div>
         </div>
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What's included in the price?<span
-              class="faq-chevron">▾</span></button>
-          <div class="faq-a">Group trips include: accommodation (hotel/camp), all meals as specified, transport,
-            sightseeing, guide fees. Flights/train to departure point and personal expenses are excluded. Full
-            inclusions list is shared before booking confirmation.</div>
+        <div class="proc-step reveal d1">
+          <div class="proc-num">
+            <div class="proc-icon">💬</div>
+          </div>
+          <div class="proc-label">Step 02</div>
+          <div class="proc-title">WhatsApp / DM Us</div>
+          <div class="proc-desc">Send a message with your dates and group size. We respond within the hour with
+            options and pricing.</div>
         </div>
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How do I book and pay?<span
-              class="faq-chevron">▾</span></button>
-          <div class="faq-a">Everything starts on WhatsApp or via DM. We send you the itinerary and inclusions, you
-            confirm dates, and pay 30% advance to lock in your seat. Balance is due 7 days before departure.</div>
+        <div class="proc-step reveal d2">
+          <div class="proc-num">
+            <div class="proc-icon">✅</div>
+          </div>
+          <div class="proc-label">Step 03</div>
+          <div class="proc-title">Confirm & Pay</div>
+          <div class="proc-desc">Review the itinerary, confirm inclusions, and secure your seat with a simple advance
+            payment.</div>
         </div>
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do you do solo trips?<span
-              class="faq-chevron">▾</span></button>
-          <div class="faq-a">Yes. Solo travellers join our group departures and get the added benefit of meeting other
-            travellers. For private solo trips, we also offer custom itineraries with everything arranged just for you.
+        <div class="proc-step reveal d3">
+          <div class="proc-num">
+            <div class="proc-icon">🚀</div>
+          </div>
+          <div class="proc-label">Step 04</div>
+          <div class="proc-title">Travel & Enjoy</div>
+          <div class="proc-desc">We're on WhatsApp throughout your trip. Just show up — we handle the rest end to end.
           </div>
         </div>
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What's your refund policy?<span
-              class="faq-chevron">▾</span></button>
-          <div class="faq-a">Cancel 10+ days before: 80% refund. Cancel 5–9 days before: 50% refund. Cancel within 5
-            days: non-refundable. Trip cancellation due to force majeure (weather, government orders) results in credit
-            for future booking. Full policy shared at booking.</div>
-        </div>
-        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How experienced is your team?<span
-              class="faq-chevron">▾</span></button>
-          <div class="faq-a">TripPanther is a verified tour operator (listed on TripzSearch). We have completed 350+
-            trips with a 4.7 rating from 72 verified reviews. Our team includes certified trek guides, local Himachal
-            and Kashmir experts, and 24/7 on-ground support staff.</div>
-        </div>
+      </div>
+      <div style="text-align:center;margin-top:50px;" class="reveal">
+        <button class="btn-primary" onclick="showPage('contact')">Start on WhatsApp →</button>
       </div>
     </div>
-    <footer class="footer" style="padding:20px 60px;">
-      <div class="footer-inner">
-        <div class="footer-bottom" style="border-top:none;padding-top:0;"><span class="footer-copy">© 2026 TripPanther ·
-            #WeArePanther</span><a href="https://www.instagram.com/trippanther_" target="_blank"
-            class="footer-insta">@trippanther_</a></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand-name">Trip<em>Panther</em> ✈️</div>
+          <p class="footer-brand-p">Adventure Awaits. Discover the world with us — group trips, honeymoon packages,
+            family tours and custom itineraries. Ex-Delhi departures. WhatsApp-first booking.</p>
+          <div class="footer-socials">
+            <a class="fsoc" href="https://www.instagram.com/trippanther_" target="_blank">📸</a>
+            <a class="fsoc" onclick="showPage('contact')">💬</a>
+            <a class="fsoc" href="tel:+91">📞</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <a onclick="showPage('home')">Home</a>
+          <a onclick="showPage('destinations')">Destinations</a>
+          <a onclick="showPage('packages')">Packages</a>
+          <a onclick="showPage('gallery')">Gallery</a>
+          <a onclick="showPage('reviews')">Reviews</a>
+          <a onclick="showPage('contact')">Contact</a>
+        </div>
+        <div class="footer-col">
+          <h4>Destinations</h4>
+          <a onclick="showPage('destinations')">Manali & Kasol</a>
+          <a onclick="showPage('destinations')">Kashmir</a>
+          <a onclick="showPage('destinations')">Tungnath</a>
+          <a onclick="showPage('destinations')">Shimla</a>
+          <a onclick="showPage('destinations')">Udaipur</a>
+          <a onclick="showPage('destinations')">Mount Abu</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <a>Indore, Madhya Pradesh</a>
+          <a href="https://www.instagram.com/trippanther_" target="_blank">@trippanther_</a>
+          <a onclick="showPage('contact')">WhatsApp Us</a>
+          <a onclick="showPage('contact')">Send Enquiry</a>
+        </div>
       </div>
-    </footer>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 TripPanther. #WeArePanther · Adventure Awaits.</span>
+        <a href="https://www.instagram.com/trippanther_" target="_blank" class="footer-insta">Follow @trippanther_ on
+          Instagram</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 2: DESTINATIONS
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="page-destinations">
+  <div class="page-banner">
+    <div class="page-banner-bg"
+      style="background-image:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=1600')">
+    </div>
+    <div class="page-banner-lines"></div>
+    <div class="page-banner-overlay"></div>
+    <div class="page-banner-content">
+      <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer">Home</span><span
+          class="breadcrumb-sep">›</span><span class="cur">Destinations</span></div>
+      <h1 class="pb-h1">Choose Your<br><em>Next Escape</em></h1>
+      <p class="pb-sub">Lost in the mountains of Himachal, Kashmir's paradise, Uttarakhand's sacred heights & more</p>
+    </div>
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════
+  <div class="dest-full-section">
+    <div class="dest-full-grid">
+      <div class="dfc reveal" onclick="showPage('packages')">
+        <div class="dfc-img">
+          <div class="dfc-badge">Most Booked</div><img
+            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=700"
+            alt="Manali">
+        </div>
+        <div class="dfc-body">
+          <div class="dfc-city">Manali & Kasol</div>
+          <div class="dfc-desc">Lost in the mountains of Himachal 🏔️ — snow-capped peaks, Parvati Valley cafes, Beas
+            River walks, and the magical Rohtang Pass. Group departures every week from Delhi.</div>
+          <div class="dfc-footer"><span class="dfc-season">📅 Best: Oct–Jun</span>
+            <div class="dfc-price">₹7,000<span>/person</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="dfc reveal d1" onclick="showPage('packages')">
+        <div class="dfc-img">
+          <div class="dfc-badge">Paradise on Earth</div><img src="k1.jpeg" alt="Kashmir">
+        </div>
+        <div class="dfc-body">
+          <div class="dfc-city">Kashmir</div>
+          <div class="dfc-desc">Paradise on Earth — Dal Lake houseboats, Gulmarg gondola rides, Pahalgam meadows, and
+            the ethereal Betaab Valley. Book your trip now before seats fill up.</div>
+          <div class="dfc-footer"><span class="dfc-season">📅 Best: Apr–Oct</span>
+            <div class="dfc-price">₹11,000<span>/person</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="dfc reveal d2" onclick="showPage('packages')">
+        <div class="dfc-img">
+          <div class="dfc-badge">Spiritual Trek</div><img
+            src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=700"
+            alt="Tungnath">
+        </div>
+        <div class="dfc-body">
+          <div class="dfc-city">Tungnath, Uttarakhand</div>
+          <div class="dfc-desc">The world's highest Shiva temple at 3,680m. An epic high-altitude trek through
+            rhododendron forests, with panoramic Himalayan views. Sacred, serene, unforgettable.</div>
+          <div class="dfc-footer"><span class="dfc-season">📅 Best: May–Nov</span>
+            <div class="dfc-price">₹8,500<span>/person</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="dfc reveal" onclick="showPage('packages')">
+        <div class="dfc-img">
+          <div class="dfc-badge">Hill Station</div><img
+            src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&q=80&w=700"
+            alt="Shimla">
+        </div>
+        <div class="dfc-body">
+          <div class="dfc-city">Shimla</div>
+          <div class="dfc-desc">The Queen of Hill Stations — toy train rides, colonial-era architecture on the Mall
+            Road, apple orchards, and cool Himalayan air. Perfect for families and honeymoon couples.</div>
+          <div class="dfc-footer"><span class="dfc-season">📅 Best: Mar–Jun & Nov</span>
+            <div class="dfc-price">₹6,500<span>/person</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="dfc reveal d1" onclick="showPage('packages')">
+        <div class="dfc-img">
+          <div class="dfc-badge">Heritage</div><img src="u.webp" alt="Udaipur">
+        </div>
+        <div class="dfc-body">
+          <div class="dfc-city">Udaipur, Rajasthan</div>
+          <div class="dfc-desc">The Venice of the East — City Palace on Lake Pichola, sunset boat rides, heritage
+            havelis, and vibrant Rajasthani culture. Couples, families, and solo travellers all love it.</div>
+          <div class="dfc-footer"><span class="dfc-season">📅 Best: Oct–Mar</span>
+            <div class="dfc-price">₹9,000<span>/person</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="dfc reveal d2" onclick="showPage('packages')">
+        <div class="dfc-img">
+          <div class="dfc-badge">Hill Station</div><img src="m.jpeg" alt="Mount Abu">
+        </div>
+        <div class="dfc-body">
+          <div class="dfc-city">Mount Abu, Rajasthan</div>
+          <div class="dfc-desc">Rajasthan's only hill station — Nakki Lake, Dilwara Temples, Guru Shikhar viewpoint,
+            and cool weather in the middle of the desert. Great for a Rajasthan add-on trip.</div>
+          <div class="dfc-footer"><span class="dfc-season">📅 Best: Nov–Feb</span>
+            <div class="dfc-price">₹7,500<span>/person</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;max-width:1200px;margin:40px auto 0;padding-bottom:20px;">
+      <button class="btn-primary" onclick="showPage('contact')">Plan My Custom Trip →</button>
+    </div>
+  </div>
+  <footer class="footer" style="padding:20px 60px;">
+    <div class="footer-inner">
+      <div class="footer-bottom" style="border-top:none;padding-top:0;"><span class="footer-copy">© 2026 TripPanther ·
+          #WeArePanther</span><a href="https://www.instagram.com/trippanther_" target="_blank"
+          class="footer-insta">@trippanther_</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 3: PACKAGES
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="page-packages">
+  <div class="page-banner">
+    <div class="page-banner-bg"
+      style="background-image:url('https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&q=80&w=1600')">
+    </div>
+    <div class="page-banner-lines"></div>
+    <div class="page-banner-overlay"></div>
+    <div class="page-banner-content">
+      <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer">Home</span><span
+          class="breadcrumb-sep">›</span><span class="cur">Packages</span></div>
+      <h1 class="pb-h1">Trips Built<br>For Your <em>Vibe</em></h1>
+      <p class="pb-sub">Starting from ₹7,000 · Ex-Delhi · Group, Honeymoon, Family & Custom</p>
+    </div>
+  </div>
+  <div class="pkg-section">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div class="filter-row">
+        <button class="ftab active" onclick="filterPkg(this,'all')">All</button>
+        <button class="ftab" onclick="filterPkg(this,'group')">Group Trips</button>
+        <button class="ftab" onclick="filterPkg(this,'honeymoon')">Honeymoon</button>
+        <button class="ftab" onclick="filterPkg(this,'family')">Family</button>
+        <button class="ftab" onclick="filterPkg(this,'heritage')">Heritage</button>
+        <button class="ftab" onclick="filterPkg(this,'beach')">Beach</button>
+      </div>
+    </div>
+    <div class="pkg-grid" style="max-width:1200px;margin:0 auto;">
+      <div class="pkg-card" data-type="group">
+        <div class="pkg-img">
+          <div class="pkg-badge">Group</div><img
+            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=700"
+            alt="Manali">
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-name">Manali + Kasol Group Trip</div>
+          <div class="pkg-meta"><span>📅 5 Days / 4 Nights</span><span>📍 Ex-Delhi</span></div>
+          <div class="pkg-desc">Fixed weekly departure. Rohtang Pass, Solang Valley, Kasol riverside camping,
+            Kheerganga trek. Meals + stay + transport included.</div>
+          <div class="pkg-footer">
+            <div class="pkg-price">₹7,000<sub>/person</sub></div><button class="btn-book"
+              onclick="showPage('contact')">Book Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="pkg-card" data-type="group">
+        <div class="pkg-img">
+          <div class="pkg-badge">Most Popular</div><img src="k1.jpeg" alt="Kashmir">
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-name">Kashmir Group Tour</div>
+          <div class="pkg-meta"><span>📅 7 Days / 6 Nights</span><span>📍 Ex-Delhi</span></div>
+          <div class="pkg-desc">Paradise on Earth. Dal Lake, Gulmarg gondola, Pahalgam, Sonamarg. Houseboat stay +
+            hotel + all transport + sightseeing.</div>
+          <div class="pkg-footer">
+            <div class="pkg-price">₹11,000<sub>/person</sub></div><button class="btn-book"
+              onclick="showPage('contact')">Book Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="pkg-card" data-type="group">
+        <div class="pkg-img">
+          <div class="pkg-badge">Spiritual</div><img
+            src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=700"
+            alt="Tungnath">
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-name">Tungnath Trek Package</div>
+          <div class="pkg-meta"><span>📅 4 Days / 3 Nights</span><span>📍 Ex-Delhi</span></div>
+          <div class="pkg-desc">World's highest Shiva temple. Trek through rhododendron forests, Chandrashila summit,
+            Deoria Tal lake. Guided trek + camps + meals.</div>
+          <div class="pkg-footer">
+            <div class="pkg-price">₹8,500<sub>/person</sub></div><button class="btn-book"
+              onclick="showPage('contact')">Book Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="pkg-card" data-type="honeymoon">
+        <div class="pkg-img">
+          <div class="pkg-badge">Honeymoon</div><img
+            src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&q=80&w=700"
+            alt="Shimla">
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-name">Shimla + Manali Honeymoon</div>
+          <div class="pkg-meta"><span>📅 7 Days / 6 Nights</span><span>📍 Ex-Delhi</span></div>
+          <div class="pkg-desc">Private cab, boutique hotel stays, candlelit dinners, snowfall experiences. The
+            complete romantic Himachal honeymoon — everything arranged.</div>
+          <div class="pkg-footer">
+            <div class="pkg-price">₹22,000<sub>/couple</sub></div><button class="btn-book"
+              onclick="showPage('contact')">Book Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="pkg-card" data-type="family">
+        <div class="pkg-img">
+          <div class="pkg-badge">Family</div><img src="r.webp" alt="Rajasthan">
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-name">Rajasthan Family Package</div>
+          <div class="pkg-meta"><span>📅 6 Days / 5 Nights</span><span>📍 Jaipur → Udaipur</span></div>
+          <div class="pkg-desc">Forts, palaces, camel rides, cultural shows. Family-friendly, comfortable stays, AC
+            transport, expert local guides. Kids love it.</div>
+          <div class="pkg-footer">
+            <div class="pkg-price">₹9,500<sub>/person</sub></div><button class="btn-book"
+              onclick="showPage('contact')">Book Now</button>
+          </div>
+        </div>
+      </div>
+      <div class="pkg-card" data-type="heritage beach">
+        <div class="pkg-img">
+          <div class="pkg-badge">Custom</div><img src="d.jpg" alt="Custom">
+        </div>
+        <div class="pkg-body">
+          <div class="pkg-name">Your Dream Custom Trip</div>
+          <div class="pkg-meta"><span>📅 Flexible</span><span>📍 Anywhere in India</span></div>
+          <div class="pkg-desc">Tell us where you want to go. We'll build a 100% custom itinerary — dates, group size,
+            budget, preferred stays. WhatsApp us to start.</div>
+          <div class="pkg-footer">
+            <div class="pkg-price" style="font-size:1rem;font-family:var(--font-body)">Tailor-Made</div><button
+              class="btn-book" onclick="showPage('contact')">Get Quote</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer" style="padding:20px 60px;">
+    <div class="footer-inner">
+      <div class="footer-bottom" style="border-top:none;padding-top:0;"><span class="footer-copy">© 2026 TripPanther ·
+          #WeArePanther</span><a href="https://www.instagram.com/trippanther_" target="_blank"
+          class="footer-insta">@trippanther_</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 4: GALLERY
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="page-gallery">
+  <div class="page-banner">
+    <div class="page-banner-bg"
+      style="background-image:url('https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&q=80&w=1600')">
+    </div>
+    <div class="page-banner-lines"></div>
+    <div class="page-banner-overlay"></div>
+    <div class="page-banner-content">
+      <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer">Home</span><span
+          class="breadcrumb-sep">›</span><span class="cur">Gallery</span></div>
+      <h1 class="pb-h1">Moments<br>From the <em>Road</em></h1>
+      <p class="pb-sub">The mountains are calling — real photos from real TripPanther journeys</p>
+    </div>
+  </div>
+  <div class="gallery-section">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div style="text-align:center;margin-bottom:40px;">
+        <div class="reveal"><span class="stag">Our Photo Gallery</span></div>
+        <div class="reveal d1">
+          <h2 class="sh2" style="margin-top:6px;">Trip <em>Memories</em></h2>
+        </div>
+      </div>
+      <div class="gallery-grid reveal">
+        <div class="gallery-cell wide">
+          <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=900"
+            alt="Manali">
+          <div class="gallery-overlay">
+            <div class="gallery-plus">+</div>
+          </div>
+          <div class="gallery-caption">Manali, Himachal Pradesh</div>
+        </div>
+        <div class="gallery-cell tall"><img src="k1.jpeg" alt="Kashmir">
+          <div class="gallery-overlay">
+            <div class="gallery-plus">+</div>
+          </div>
+          <div class="gallery-caption">Kashmir Valley</div>
+        </div>
+        <div class="gallery-cell"><img
+            src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=600"
+            alt="Tungnath">
+          <div class="gallery-overlay">
+            <div class="gallery-plus">+</div>
+          </div>
+          <div class="gallery-caption">Tungnath Temple</div>
+        </div>
+        <div class="gallery-cell"><img
+            src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&q=80&w=600"
+            alt="Shimla">
+          <div class="gallery-overlay">
+            <div class="gallery-plus">+</div>
+          </div>
+          <div class="gallery-caption">Shimla Snowfall</div>
+        </div>
+        <div class="gallery-cell"><img src="u.webp" alt="Udaipur">
+          <div class="gallery-overlay">
+            <div class="gallery-plus">+</div>
+          </div>
+          <div class="gallery-caption">Udaipur Lake Palace</div>
+        </div>
+        <div class="gallery-cell"><img
+            src="https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?auto=format&fit=crop&q=80&w=600"
+            alt="Mountains">
+          <div class="gallery-overlay">
+            <div class="gallery-plus">+</div>
+          </div>
+          <div class="gallery-caption">Mountain Adventures</div>
+        </div>
+        <div class="gallery-cell"><img src="m.jpeg" alt="Mount Abu">
+          <div class="gallery-overlay">
+            <div class="gallery-plus">+</div>
+          </div>
+          <div class="gallery-caption">Mount Abu Sunset</div>
+        </div>
+        <div class="gallery-cell"><img src="r.webp" alt="Rajasthan">
+          <div class="gallery-overlay">
+            <div class="gallery-plus">+</div>
+          </div>
+          <div class="gallery-caption">Rajasthan</div>
+        </div>
+        <div class="gallery-cell tall">
+          <video src="4.mp4" autoplay muted loop playsinline></video>
+          <div class="gallery-overlay">
+            <div class="gallery-plus">+</div>
+          </div>
+          <div class="gallery-caption">Rajasthan Adventure</div>
+        </div>
+        <div class="gallery-cell tall">
+          <video src="1.mp4" autoplay muted loop playsinline></video>
+          <div class="gallery-overlay">
+            <div class="gallery-plus">+</div>
+          </div>
+          <div class="gallery-caption">Kashmir Reels</div>
+        </div>
+        <div class="gallery-cell tall">
+          <video src="2.mp4" autoplay muted loop playsinline></video>
+          <div class="gallery-overlay">
+            <div class="gallery-plus">+</div>
+          </div>
+          <div class="gallery-caption">Mountain Vibes</div>
+        </div>
+        <div class="gallery-cell tall">
+          <video src="3.mp4" autoplay muted loop playsinline></video>
+          <div class="gallery-overlay">
+            <div class="gallery-plus">+</div>
+          </div>
+          <div class="gallery-caption">Trip Panther Moments</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="insta-strip">
+    <div class="insta-handle">📸 Follow <a href="https://www.instagram.com/trippanther_" target="_blank"
+        style="color:var(--teal);margin-left:4px;">@trippanther_</a> for daily adventures</div>
+    <p style="font-size:.78rem;color:var(--muted);margin-top:8px;">Check our highlights for real client trip videos ·
+      #TravelwithTrippanther · #WeArePanther</p>
+    <a href="https://www.instagram.com/trippanther_" target="_blank"><button class="btn-primary"
+        style="margin-top:20px;">View on Instagram →</button></a>
+  </div>
+  <footer class="footer" style="padding:20px 60px;">
+    <div class="footer-inner">
+      <div class="footer-bottom" style="border-top:none;padding-top:0;"><span class="footer-copy">© 2026 TripPanther ·
+          #WeArePanther</span><a href="https://www.instagram.com/trippanther_" target="_blank"
+          class="footer-insta">@trippanther_</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PAGE 5: REVIEWS
+═══════════════════════════════════════════════════════ -->
+<div class="page" id="page-reviews">
+  <div class="page-banner">
+    <div class="page-banner-bg" style="background-image:url(d.jpg)">
+    </div>
+    <div class="page-banner-lines"></div>
+    <div class="page-banner-overlay"></div>
+    <div class="page-banner-content">
+      <div class="breadcrumb"><span onclick="showPage('home')" style="cursor:pointer">Home</span><span
+          class="breadcrumb-sep">›</span><span class="cur">Reviews</span></div>
+      <h1 class="pb-h1">Trusted <em>Journeys</em></h1>
+      <p class="pb-sub">Luxury, Comfort, Trust — That's TripPanther</p>
+    </div>
+  </div>
+  <div class="reviews-section">
+    <div class="rating-hero reveal">
+      <div class="rating-big">
+        <div class="rating-num">4.7</div>
+        <div class="rating-stars">★★★★☆</div>
+        <div class="rating-count">Based on 72 verified reviews</div>
+      </div>
+      <div class="rating-divider"></div>
+      <div class="rating-copy">
+        <h3>Verified Travel Operator</h3>
+        <p>TripPanther (Trippanther Tour and Travels) is a verified operator with a strong track record across group
+          trips, honeymoon packages, family tours, and heritage expeditions. Rated 4.7 across 72 reviews — our clients
+          keep coming back.</p>
+        <div class="trust-tag">✓ Verified Operator · 72 Reviews · 4.4K Instagram Followers</div>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-q">Absolutely seamless Manali group trip. Everything was arranged — pickup, hotel, food,
+          sightseeing. The group of strangers became friends by day 2. Book with TripPanther, no second thoughts.
+        </div>
+        <div class="testi-author">
+          <div class="tav">AK</div>
+          <div>
+            <div class="tname">Ankita Khanna</div>
+            <div class="tloc">Delhi — Manali Group Trip</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal d1">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-q">Kashmir honeymoon was beyond our expectations. Dal Lake houseboat was surreal. The team
+          arranged everything from airport to airport. We didn't have to think once. Highly recommend!</div>
+        <div class="testi-author">
+          <div class="tav">SM</div>
+          <div>
+            <div class="tname">Siddharth & Meera</div>
+            <div class="tloc">Mumbai — Kashmir Honeymoon</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal d2">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-q">One day trip to Manali was on fire 🔥 Saw the client highlight videos and booked
+          immediately. They delivered exactly what they showed. No over-promising at all. Very trustworthy team.</div>
+        <div class="testi-author">
+          <div class="tav">RP</div>
+          <div>
+            <div class="tname">Rahul Pandey</div>
+            <div class="tloc">Noida — Day Trip</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★☆</div>
+        <div class="testi-q">Took my parents to Udaipur + Shimla combo. Family trip was very comfortable, good hotels,
+          no rush in the itinerary. Minor communication delay at one point but overall a great experience.</div>
+        <div class="testi-author">
+          <div class="tav">PJ</div>
+          <div>
+            <div class="tname">Priya Joshi</div>
+            <div class="tloc">Pune — Family Tour</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal d1">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-q">Tungnath trek was spiritual and breathtaking. Never trekked before but the guide was
+          excellent. Camp food was surprisingly good. Will definitely do another trek with TripPanther next season.
+        </div>
+        <div class="testi-author">
+          <div class="tav">VK</div>
+          <div>
+            <div class="tname">Vikash Kumar</div>
+            <div class="tloc">Delhi — Tungnath Trek</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal d2">
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-q">Booked a custom Kasol trip for 6 friends. They customised everything perfectly within our
+          tight budget. The bonfire nights were unforgettable. Already planning Spiti Valley with them next year!
+        </div>
+        <div class="testi-author">
+          <div class="tav">MG</div>
+          <div>
+            <div class="tname">Meghna & Group</div>
+            <div class="tloc">Bengaluru — Kasol Custom Trip</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="policy-bar reveal">
+      <div class="policy-item">
+        <div class="policy-icon">🔒</div>
+        <div>
+          <div class="policy-title">Transparent Inclusions</div>
+          <div class="policy-desc">Every package listing is clear on what's included — stay, meals, transport, guide
+            fees. No hidden surprises at check-in.</div>
+        </div>
+      </div>
+      <div class="policy-item">
+        <div class="policy-icon">💰</div>
+        <div>
+          <div class="policy-title">Refund & Cancellation</div>
+          <div class="policy-desc">Cancel 10+ days before departure: 80% refund. 5–9 days: 50%. Within 5 days:
+            non-refundable. Contact us for exceptions.</div>
+        </div>
+      </div>
+      <div class="policy-item">
+        <div class="policy-icon">🛡️</div>
+        <div>
+          <div class="policy-title">Safety & Support</div>
+          <div class="policy-desc">24/7 WhatsApp support throughout your trip. Emergency contacts provided before
+            departure. Your safety is our priority.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="faq-section">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div class="reveal"><span class="stag">Common Questions</span></div>
+      <div class="reveal d1">
+        <h2 class="sh2" style="margin-top:6px;">FAQ</h2>
+      </div>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Where do trips start from?<span
+            class="faq-chevron">▾</span></button>
+        <div class="faq-a">Most of our group departures are Ex-Delhi (by bus/train). We also arrange pickup from
+          Indore and can coordinate from other cities on request. Custom trips can depart from your city.</div>
+      </div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What's included in the price?<span
+            class="faq-chevron">▾</span></button>
+        <div class="faq-a">Group trips include: accommodation (hotel/camp), all meals as specified, transport,
+          sightseeing, guide fees. Flights/train to departure point and personal expenses are excluded. Full
+          inclusions list is shared before booking confirmation.</div>
+      </div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How do I book and pay?<span
+            class="faq-chevron">▾</span></button>
+        <div class="faq-a">Everything starts on WhatsApp or via DM. We send you the itinerary and inclusions, you
+          confirm dates, and pay 30% advance to lock in your seat. Balance is due 7 days before departure.</div>
+      </div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">Do you do solo trips?<span
+            class="faq-chevron">▾</span></button>
+        <div class="faq-a">Yes. Solo travellers join our group departures and get the added benefit of meeting other
+          travellers. For private solo trips, we also offer custom itineraries with everything arranged just for you.
+        </div>
+      </div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">What's your refund policy?<span
+            class="faq-chevron">▾</span></button>
+        <div class="faq-a">Cancel 10+ days before: 80% refund. Cancel 5–9 days before: 50% refund. Cancel within 5
+          days: non-refundable. Trip cancellation due to force majeure (weather, government orders) results in credit
+          for future booking. Full policy shared at booking.</div>
+      </div>
+      <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)">How experienced is your team?<span
+            class="faq-chevron">▾</span></button>
+        <div class="faq-a">TripPanther is a verified tour operator (listed on TripzSearch). We have completed 350+
+          trips with a 4.7 rating from 72 verified reviews. Our team includes certified trek guides, local Himachal
+          and Kashmir experts, and 24/7 on-ground support staff.</div>
+      </div>
+    </div>
+  </div>
+  <footer class="footer" style="padding:20px 60px;">
+    <div class="footer-inner">
+      <div class="footer-bottom" style="border-top:none;padding-top:0;"><span class="footer-copy">© 2026 TripPanther ·
+          #WeArePanther</span><a href="https://www.instagram.com/trippanther_" target="_blank"
+          class="footer-insta">@trippanther_</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
      PAGE 6: CONTACT
 ═══════════════════════════════════════════════════════ -->
-  <div class="page" id="page-contact">
-    <div class="contact-layout">
-      <div class="contact-left">
-        <span
-          style="font-size:.65rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);opacity:.7;display:block;margin-bottom:12px;">Let's
-          Plan Your Trip</span>
-        <h2>Let's Talk.<br><em>Adventure</em><br>Awaits.</h2>
-        <p>DM us or WhatsApp now — we respond within the hour. Quick, honest answers. No complicated forms, no waiting.
-        </p>
-        <div class="ci-list">
-          <div class="ci-item">
-            <div class="ci-icon">📍</div>
-            <div class="ci-text">
-              <div class="ci-lbl">Based In</div>
-              <div class="ci-val">Indore, Madhya Pradesh, India</div>
-            </div>
-          </div>
-          <div class="ci-item">
-            <div class="ci-icon">📸</div>
-            <div class="ci-text">
-              <div class="ci-lbl">Instagram</div>
-              <div class="ci-val"><a href="https://www.instagram.com/trippanther_" target="_blank">@trippanther_</a> ·
-                4.4K Followers</div>
-            </div>
-          </div>
-          <div class="ci-item">
-            <div class="ci-icon">🌍</div>
-            <div class="ci-text">
-              <div class="ci-lbl">Destinations</div>
-              <div class="ci-val">Manali, Kasol, Kashmir, Tungnath, Shimla, Udaipur, Mount Abu & more</div>
-            </div>
-          </div>
-          <div class="ci-item">
-            <div class="ci-icon">⏰</div>
-            <div class="ci-text">
-              <div class="ci-lbl">Response Time</div>
-              <div class="ci-val">Within 1 hour on WhatsApp · 7 days a week</div>
-            </div>
+<div class="page" id="page-contact">
+  <div class="contact-layout">
+    <div class="contact-left">
+      <span
+        style="font-size:.65rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);opacity:.7;display:block;margin-bottom:12px;">Let's
+        Plan Your Trip</span>
+      <h2>Let's Talk.<br><em>Adventure</em><br>Awaits.</h2>
+      <p>DM us or WhatsApp now — we respond within the hour. Quick, honest answers. No complicated forms, no waiting.
+      </p>
+      <div class="ci-list">
+        <div class="ci-item">
+          <div class="ci-icon">📍</div>
+          <div class="ci-text">
+            <div class="ci-lbl">Based In</div>
+            <div class="ci-val">Indore, Madhya Pradesh, India</div>
           </div>
         </div>
-        <button class="wa-btn"><span style="font-size:1.2rem">📱</span> Chat on WhatsApp Now</button>
+        <div class="ci-item">
+          <div class="ci-icon">📸</div>
+          <div class="ci-text">
+            <div class="ci-lbl">Instagram</div>
+            <div class="ci-val"><a href="https://www.instagram.com/trippanther_" target="_blank">@trippanther_</a> ·
+              4.4K Followers</div>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon">🌍</div>
+          <div class="ci-text">
+            <div class="ci-lbl">Destinations</div>
+            <div class="ci-val">Manali, Kasol, Kashmir, Tungnath, Shimla, Udaipur, Mount Abu & more</div>
+          </div>
+        </div>
+        <div class="ci-item">
+          <div class="ci-icon">⏰</div>
+          <div class="ci-text">
+            <div class="ci-lbl">Response Time</div>
+            <div class="ci-val">Within 1 hour on WhatsApp · 7 days a week</div>
+          </div>
+        </div>
       </div>
-      <div class="contact-right">
-        <h3>Send an Enquiry</h3>
-        <div class="frow">
-          <div class="fg"><label class="fl">Full Name</label><input type="text" class="fc" placeholder="Your name"
-              id="cn"></div>
-          <div class="fg"><label class="fl">Phone / WhatsApp</label><input type="tel" class="fc"
-              placeholder="+91 00000 00000"></div>
-        </div>
-        <div class="frow">
-          <div class="fg"><label class="fl">Destination</label>
-            <select class="fc">
-              <option value="">Select destination</option>
-              <option>Manali & Kasol</option>
-              <option>Kashmir</option>
-              <option>Tungnath Trek</option>
-              <option>Shimla</option>
-              <option>Udaipur</option>
-              <option>Mount Abu</option>
-              <option>Custom Trip</option>
-            </select>
-          </div>
-          <div class="fg"><label class="fl">Trip Type</label>
-            <select class="fc">
-              <option value="">Select type</option>
-              <option>Group Trip</option>
-              <option>Honeymoon</option>
-              <option>Family Tour</option>
-              <option>Heritage Tour</option>
-              <option>Beach Holiday</option>
-              <option>Custom</option>
-            </select>
-          </div>
-        </div>
-        <div class="frow">
-          <div class="fg"><label class="fl">Travel Date</label><input type="month" class="fc"></div>
-          <div class="fg"><label class="fl">Group Size</label><input type="number" class="fc"
-              placeholder="No. of people" min="1"></div>
-        </div>
-        <div class="fg"><label class="fl">Tell Us Your Dream Trip</label><textarea class="fc"
-            placeholder="Dates, budget, any special requirements? We'll build the perfect itinerary for you..."></textarea>
-        </div>
-        <button class="fsub" onclick="submitForm()">Send Enquiry →</button>
-        <div class="fsuccess" id="fs">✓ We received your enquiry! Expect a WhatsApp reply within the hour. Follow <a
-            href="https://www.instagram.com/trippanther_" target="_blank" style="color:var(--teal)">@trippanther_</a>
-          while you wait!</div>
-      </div>
+      <button class="wa-btn"><span style="font-size:1.2rem">📱</span> Chat on WhatsApp Now</button>
     </div>
-    <footer class="footer" style="padding:20px 60px;">
-      <div class="footer-inner">
-        <div class="footer-bottom" style="border-top:none;padding-top:0;"><span class="footer-copy">© 2026 TripPanther ·
-            #WeArePanther · Indore, India</span><a href="https://www.instagram.com/trippanther_" target="_blank"
-            class="footer-insta">@trippanther_</a></div>
+    <div class="contact-right">
+      <h3>Send an Enquiry</h3>
+      <div class="frow">
+        <div class="fg"><label class="fl">Full Name</label><input type="text" class="fc" placeholder="Your name"
+            id="cn"></div>
+        <div class="fg"><label class="fl">Phone / WhatsApp</label><input type="tel" class="fc"
+            placeholder="+91 00000 00000"></div>
       </div>
-    </footer>
+      <div class="frow">
+        <div class="fg"><label class="fl">Destination</label>
+          <select class="fc">
+            <option value="">Select destination</option>
+            <option>Manali & Kasol</option>
+            <option>Kashmir</option>
+            <option>Tungnath Trek</option>
+            <option>Shimla</option>
+            <option>Udaipur</option>
+            <option>Mount Abu</option>
+            <option>Custom Trip</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">Trip Type</label>
+          <select class="fc">
+            <option value="">Select type</option>
+            <option>Group Trip</option>
+            <option>Honeymoon</option>
+            <option>Family Tour</option>
+            <option>Heritage Tour</option>
+            <option>Beach Holiday</option>
+            <option>Custom</option>
+          </select>
+        </div>
+      </div>
+      <div class="frow">
+        <div class="fg"><label class="fl">Travel Date</label><input type="month" class="fc"></div>
+        <div class="fg"><label class="fl">Group Size</label><input type="number" class="fc" placeholder="No. of people"
+            min="1"></div>
+      </div>
+      <div class="fg"><label class="fl">Tell Us Your Dream Trip</label><textarea class="fc"
+          placeholder="Dates, budget, any special requirements? We'll build the perfect itinerary for you..."></textarea>
+      </div>
+      <button class="fsub" onclick="submitForm()">Send Enquiry →</button>
+      <div class="fsuccess" id="fs">✓ We received your enquiry! Expect a WhatsApp reply within the hour. Follow <a
+          href="https://www.instagram.com/trippanther_" target="_blank" style="color:var(--teal)">@trippanther_</a>
+        while you wait!</div>
+    </div>
   </div>
+  <footer class="footer" style="padding:20px 60px;">
+    <div class="footer-inner">
+      <div class="footer-bottom" style="border-top:none;padding-top:0;"><span class="footer-copy">© 2026 TripPanther ·
+          #WeArePanther · Indore, India</span><a href="https://www.instagram.com/trippanther_" target="_blank"
+          class="footer-insta">@trippanther_</a></div>
+    </div>
+  </footer>
+</div>
 
-  <!-- ══════════════ JAVASCRIPT ══════════════ -->
-  <script>
-    /* ─── CURSOR ─── */
-    document.title = 'TripPanther - Supreme Adventure Travel';
-    const cur = document.getElementById('cursor'), curR = document.getElementById('cursor-ring');
-    const menuBtn = document.querySelector('.nav-menu-btn');
-    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
-    function toggleNav(force) {
-      const shouldOpen = typeof force === 'boolean' ? force : !document.body.classList.contains('nav-open');
-      document.body.classList.toggle('nav-open', shouldOpen);
-      if (menuBtn) menuBtn.setAttribute('aria-expanded', String(shouldOpen));
-    }
-    if (isCoarsePointer) {
-      if (cur) cur.style.display = 'none';
-      if (curR) curR.style.display = 'none';
-      document.body.style.cursor = 'auto';
-    } else {
-      document.addEventListener('mousemove', e => {
-        cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
-        setTimeout(() => { curR.style.left = e.clientX + 'px'; curR.style.top = e.clientY + 'px'; }, 60);
-      });
-      document.querySelectorAll('a,button,.dest-tile,.dfc,.pkg-card,.testi-card,.gallery-cell,.svc-card').forEach(el => {
-        el.addEventListener('mouseenter', () => document.body.classList.add('hov'));
-        el.addEventListener('mouseleave', () => document.body.classList.remove('hov'));
-      });
-    }
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') toggleNav(false);
+<!-- ══════════════ JAVASCRIPT ══════════════ -->
+<script>
+  /* ─── CURSOR ─── */
+  document.title = 'TripPanther - Supreme Adventure Travel';
+  const cur = document.getElementById('cursor'), curR = document.getElementById('cursor-ring');
+  const menuBtn = document.querySelector('.nav-menu-btn');
+  const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+  function toggleNav(force) {
+    const shouldOpen = typeof force === 'boolean' ? force : !document.body.classList.contains('nav-open');
+    document.body.classList.toggle('nav-open', shouldOpen);
+    if (menuBtn) menuBtn.setAttribute('aria-expanded', String(shouldOpen));
+  }
+  if (isCoarsePointer) {
+    if (cur) cur.style.display = 'none';
+    if (curR) curR.style.display = 'none';
+    document.body.style.cursor = 'auto';
+  } else {
+    document.addEventListener('mousemove', e => {
+      cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
+      setTimeout(() => { curR.style.left = e.clientX + 'px'; curR.style.top = e.clientY + 'px'; }, 60);
     });
-    window.addEventListener('resize', () => {
-      if (window.innerWidth > 900) toggleNav(false);
-    }, { passive: true });
-
-    /* ─── NAV SCROLL ─── */
-    window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', scrollY > 60), { passive: true });
-
-    /* ─── PAGES ─── */
-    function showPage(n) {
-      toggleNav(false);
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('act'));
-      document.getElementById('page-' + n).classList.add('active');
-      const l = document.querySelector('[data-page="' + n + '"]');
-      if (l) l.classList.add('act');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      setTimeout(checkReveal, 150);
-    }
-
-    /* ─── REVEAL ─── */
-    function checkReveal() {
-      document.querySelectorAll('.reveal:not(.in)').forEach(el => {
-        if (el.getBoundingClientRect().top < window.innerHeight - 60) el.classList.add('in');
-      });
-    }
-    window.addEventListener('scroll', checkReveal, { passive: true });
-    setTimeout(checkReveal, 300);
-
-    /* ─── HERO SLIDESHOW ─── */
-    const SLIDES = [
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=1920",
-      "k1.jpeg",
-      "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=1920",
-      "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&q=80&w=1920"
-    ];
-    let sIdx = 0;
-    const sbg = document.getElementById('slide-bg');
-    const sdots = document.querySelectorAll('.sdot');
-    function heroSlide(n) {
-      sIdx = n;
-      sbg.style.backgroundImage = `url('${SLIDES[n]}')`;
-      sdots.forEach((d, i) => d.classList.toggle('active', i === n));
-    }
-    heroSlide(0);
-    setInterval(() => heroSlide((sIdx + 1) % SLIDES.length), 5500);
-
-    /* ─── 3D PARTICLE CANVAS ─── */
-    (function () {
-      const canvas = document.getElementById('particle-canvas');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      let W, H, pts = [];
-      function resize() { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; }
-      resize(); window.addEventListener('resize', () => { resize(); init(); });
-      function init() {
-        pts = [];
-        for (let i = 0; i < 80; i++) pts.push({
-          x: Math.random() * W, y: Math.random() * H,
-          vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3,
-          r: Math.random() * 1.8 + .5, a: Math.random()
-        });
-      }
-      init();
-      let mx = W / 2, my = H / 2;
-      document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-      function draw() {
-        ctx.clearRect(0, 0, W, H);
-        pts.forEach(p => {
-          p.x += p.vx; p.y += p.vy;
-          if (p.x < 0 || p.x > W) p.vx *= -1;
-          if (p.y < 0 || p.y > H) p.vy *= -1;
-          // mouse repel
-          const dx = p.x - mx, dy = p.y - my, dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 80) { p.vx += dx / dist * .02; p.vy += dy / dist * .02; }
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(0,229,204,${p.a * 0.45})`;
-          ctx.fill();
-        });
-        // draw connections
-        for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) {
-          const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y, d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 120) {
-            ctx.beginPath();
-            ctx.moveTo(pts[i].x, pts[i].y);
-            ctx.lineTo(pts[j].x, pts[j].y);
-            ctx.strokeStyle = `rgba(0,229,204,${(1 - d / 120) * 0.12})`;
-            ctx.lineWidth = .6;
-            ctx.stroke();
-          }
-        }
-        requestAnimationFrame(draw);
-      }
-      draw();
-    })();
-
-    /* ─── PACKAGE FILTER ─── */
-    function filterPkg(btn, type) {
-      document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('#page-packages .pkg-card').forEach(c => {
-        c.style.display = (type === 'all' || c.dataset.type?.split(' ').includes(type)) ? 'block' : 'none';
-      });
-    }
-
-    /* ─── FAQ ─── */
-    function toggleFaq(btn) {
-      const item = btn.parentElement;
-      const wasOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-      if (!wasOpen) item.classList.add('open');
-    }
-
-    /* ─── FORM ─── */
-    function submitForm() {
-      const n = document.getElementById('cn').value.trim();
-      if (!n) { document.getElementById('cn').focus(); return; }
-      const btn = document.querySelector('.fsub');
-      btn.textContent = 'Sending...';
-      setTimeout(() => {
-        btn.textContent = '✓ Sent!';
-        btn.style.background = '#25D366';
-        document.getElementById('fs').style.display = 'block';
-      }, 900);
-    }
-  </script>
-  <script>
-    window.addEventListener('load', () => {
-      setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 2000);
+    document.querySelectorAll('a,button,.dest-tile,.dfc,.pkg-card,.testi-card,.gallery-cell,.svc-card').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('hov'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('hov'));
     });
-  </script>
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') toggleNav(false);
+  });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) toggleNav(false);
+  }, { passive: true });
+
+  /* ─── NAV SCROLL ─── */
+  window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', scrollY > 60), { passive: true });
+
+  /* ─── PAGES ─── */
+  function showPage(n) {
+    toggleNav(false);
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('act'));
+    document.getElementById('page-' + n).classList.add('active');
+    const l = document.querySelector('[data-page="' + n + '"]');
+    if (l) l.classList.add('act');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(checkReveal, 150);
+  }
+
+  /* ─── REVEAL ─── */
+  function checkReveal() {
+    document.querySelectorAll('.reveal:not(.in)').forEach(el => {
+      if (el.getBoundingClientRect().top < window.innerHeight - 60) el.classList.add('in');
+    });
+  }
+  window.addEventListener('scroll', checkReveal, { passive: true });
+  setTimeout(checkReveal, 300);
+
+  /* ─── HERO SLIDESHOW ─── */
+  const SLIDES = [
+    "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&q=80&w=1920",
+    "k1.jpeg",
+    "https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&q=80&w=1920",
+    "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?auto=format&fit=crop&q=80&w=1920"
+  ];
+  let sIdx = 0;
+  const sbg = document.getElementById('slide-bg');
+  const sdots = document.querySelectorAll('.sdot');
+  function heroSlide(n) {
+    sIdx = n;
+    sbg.style.backgroundImage = `url('${SLIDES[n]}')`;
+    sdots.forEach((d, i) => d.classList.toggle('active', i === n));
+  }
+  heroSlide(0);
+  setInterval(() => heroSlide((sIdx + 1) % SLIDES.length), 5500);
+
+
+  /* ─── PACKAGE FILTER ─── */
+  function filterPkg(btn, type) {
+    document.querySelectorAll('.ftab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#page-packages .pkg-card').forEach(c => {
+      c.style.display = (type === 'all' || c.dataset.type?.split(' ').includes(type)) ? 'block' : 'none';
+    });
+  }
+
+  /* ─── FAQ ─── */
+  function toggleFaq(btn) {
+    const item = btn.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  /* ─── FORM ─── */
+  function submitForm() {
+    const n = document.getElementById('cn').value.trim();
+    if (!n) { document.getElementById('cn').focus(); return; }
+    const btn = document.querySelector('.fsub');
+    btn.textContent = 'Sending...';
+    setTimeout(() => {
+      btn.textContent = '✓ Sent!';
+      btn.style.background = '#25D366';
+      document.getElementById('fs').style.display = 'block';
+    }, 900);
+  }
+</script>
 
 </body>
 
