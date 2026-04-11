@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="TripPanther crafts premium group trips, mountain escapes, and custom adventures with a cinematic travel experience from first enquiry to final sunrise.">
   <title>TripPanther — Adventure Awaits</title>
   <link
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
@@ -2119,6 +2121,787 @@
         transform: scaleY(1)
       }
     }
+
+    /* SUPREME REFRESH */
+    :root {
+      --black: #06131a;
+      --dark: rgba(7, 20, 28, 0.86);
+      --dark2: rgba(11, 28, 39, 0.92);
+      --teal: #8df2d6;
+      --teal2: #2dc9aa;
+      --amber: #ffbe74;
+      --white: #f7f3ea;
+      --muted: rgba(247, 243, 234, 0.66);
+      --border: rgba(141, 242, 214, 0.14);
+      --surface: rgba(8, 21, 29, 0.7);
+      --surface-strong: rgba(9, 24, 34, 0.92);
+      --shadow-xl: 0 32px 90px rgba(0, 0, 0, 0.3);
+    }
+
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(45, 201, 170, 0.18), transparent 32%),
+        radial-gradient(circle at top right, rgba(255, 190, 116, 0.13), transparent 30%),
+        linear-gradient(180deg, #041018 0%, #06131a 34%, #071b24 100%);
+    }
+
+    body::before,
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body::before {
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 120px 120px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.65), transparent 88%);
+      opacity: 0.18;
+    }
+
+    body::after {
+      background:
+        radial-gradient(circle at 20% 12%, rgba(141, 242, 214, 0.16), transparent 20%),
+        radial-gradient(circle at 80% 18%, rgba(255, 190, 116, 0.12), transparent 18%);
+      filter: blur(18px);
+      opacity: 0.95;
+    }
+
+    #preloader {
+      background: #07141b;
+    }
+
+    #preloader-video {
+      width: min(48vw, 520px);
+      height: auto;
+    }
+
+    #nav {
+      top: 18px;
+      left: 50%;
+      right: auto;
+      width: min(1240px, calc(100% - 32px));
+      height: 82px;
+      padding: 0 18px;
+      transform: translateX(-50%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 26px;
+      background: rgba(5, 16, 23, 0.6);
+      backdrop-filter: blur(24px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    #nav.scrolled {
+      background: rgba(5, 16, 23, 0.8);
+      border-bottom-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .nav-logo {
+      gap: 12px;
+      z-index: 2;
+    }
+
+    .nav-logo-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 18px 30px rgba(45, 201, 170, 0.18);
+    }
+
+    .nav-brand {
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      gap: 8px;
+      padding: 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .nav-links a {
+      padding: 11px 15px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+    }
+
+    .nav-links a::after {
+      display: none;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.act {
+      color: var(--white);
+      background: rgba(141, 242, 214, 0.12);
+    }
+
+    .nav-wa {
+      padding: 13px 20px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--teal), #d8fff2);
+      box-shadow: 0 20px 35px rgba(45, 201, 170, 0.22);
+    }
+
+    .nav-menu-btn {
+      display: none;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.03);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .nav-menu-btn span {
+      width: 18px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--white);
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    body.nav-open .nav-menu-btn span:first-child {
+      transform: translateY(3.5px) rotate(45deg);
+    }
+
+    body.nav-open .nav-menu-btn span:last-child {
+      transform: translateY(-3.5px) rotate(-45deg);
+    }
+
+    .hero {
+      min-height: 100svh;
+      padding: 140px 28px 72px;
+      align-items: stretch;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 24%, rgba(141, 242, 214, 0.2), transparent 22%),
+        radial-gradient(circle at 78% 22%, rgba(255, 190, 116, 0.14), transparent 18%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-overlay {
+      background:
+        linear-gradient(to bottom, rgba(4, 14, 19, 0.2) 0%, rgba(4, 14, 19, 0.38) 38%, rgba(4, 14, 19, 0.92) 100%),
+        linear-gradient(to right, rgba(4, 14, 19, 0.74) 0%, rgba(4, 14, 19, 0.2) 48%, rgba(4, 14, 19, 0.72) 100%);
+    }
+
+    .hero-content {
+      width: min(1280px, 100%);
+      margin: auto;
+      padding: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+      align-items: end;
+      gap: 36px;
+      text-align: left;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+    }
+
+    .hero-pill {
+      margin-bottom: 18px;
+      padding: 9px 18px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(255, 255, 255, 0.12);
+      color: var(--white);
+    }
+
+    .hero-eyebrow {
+      margin-bottom: 18px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(247, 243, 234, 0.72);
+    }
+
+    .hero-h1 {
+      max-width: 7ch;
+      font-size: clamp(4.3rem, 9vw, 8.8rem);
+      line-height: 0.84;
+      letter-spacing: 0.01em;
+      text-shadow: 0 14px 40px rgba(0, 0, 0, 0.24);
+    }
+
+    .hero-h1 span {
+      display: block;
+      background: linear-gradient(135deg, var(--teal) 0%, #fff2d6 52%, var(--amber) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      max-width: 640px;
+      margin: 22px 0 34px;
+      font-size: 1.03rem;
+      line-height: 1.85;
+      color: rgba(247, 243, 234, 0.76);
+    }
+
+    .hero-btns {
+      justify-content: flex-start;
+      gap: 12px;
+    }
+
+    .btn-primary,
+    .btn-outline {
+      padding: 15px 24px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--teal), #d8fff2);
+      box-shadow: 0 24px 45px rgba(45, 201, 170, 0.22);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.14);
+    }
+
+    .hero-highlights {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .hero-highlight {
+      padding: 18px 18px 16px;
+      border-radius: 22px;
+      background: rgba(9, 24, 34, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 18px 38px rgba(0, 0, 0, 0.18);
+    }
+
+    .hero-highlight strong {
+      display: block;
+      margin-bottom: 6px;
+      font-family: var(--font-head);
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .hero-highlight span {
+      display: block;
+      font-size: 0.78rem;
+      line-height: 1.6;
+      color: rgba(247, 243, 234, 0.62);
+    }
+
+    .hero-panel {
+      padding: 22px;
+      border-radius: 32px;
+      background: linear-gradient(180deg, rgba(10, 26, 36, 0.9), rgba(7, 20, 28, 0.82));
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: var(--shadow-xl);
+      backdrop-filter: blur(24px);
+    }
+
+    .hero-showcase {
+      position: relative;
+      min-height: 400px;
+      border-radius: 24px;
+      overflow: hidden;
+      margin-bottom: 16px;
+    }
+
+    .hero-showcase img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.84);
+    }
+
+    .hero-showcase::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(4, 14, 19, 0.96) 0%, rgba(4, 14, 19, 0.14) 55%);
+    }
+
+    .hero-showcase-badge,
+    .hero-showcase-copy {
+      position: absolute;
+      z-index: 1;
+    }
+
+    .hero-showcase-badge {
+      top: 18px;
+      left: 18px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+
+    .hero-showcase-copy {
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+    }
+
+    .hero-showcase-copy h3 {
+      font-family: var(--font-head);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .hero-showcase-copy p {
+      font-size: 0.86rem;
+      line-height: 1.7;
+      color: rgba(247, 243, 234, 0.74);
+    }
+
+    .hero-proof {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .hero-proof-item {
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .hero-proof-item strong {
+      display: block;
+      margin-bottom: 4px;
+      font-family: var(--font-head);
+      font-size: 1.06rem;
+      color: var(--white);
+    }
+
+    .hero-proof-item span {
+      font-size: 0.76rem;
+      line-height: 1.55;
+      color: rgba(247, 243, 234, 0.62);
+    }
+
+    .hero-scroll {
+      bottom: 22px;
+      letter-spacing: 0.28em;
+    }
+
+    .hero-slides-dots {
+      right: 24px;
+      bottom: 24px;
+    }
+
+    .stats-bar {
+      max-width: 1240px;
+      margin: -34px auto 0;
+      padding: 0 20px 44px;
+      background: transparent;
+      border: none;
+      gap: 14px;
+      position: relative;
+      z-index: 4;
+    }
+
+    .stat-cell {
+      padding: 24px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      background: rgba(9, 24, 34, 0.74);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.18);
+    }
+
+    .stat-num {
+      font-size: 2.4rem;
+      color: var(--white);
+    }
+
+    .stat-lbl {
+      color: rgba(247, 243, 234, 0.56);
+    }
+
+    .section,
+    .dest-full-section,
+    .pkg-section,
+    .gallery-section,
+    .reviews-section,
+    .faq-section {
+      padding-left: 20px;
+      padding-right: 20px;
+      background: transparent;
+    }
+
+    .dest-section,
+    .services-section,
+    .testi-section,
+    .process-section,
+    .insta-strip,
+    .footer {
+      background: transparent;
+    }
+
+    .dest-section>div:first-child {
+      padding: 90px 20px 32px !important;
+    }
+
+    .sh2 {
+      max-width: 12ch;
+      font-size: clamp(2.4rem, 4.8vw, 4rem);
+      line-height: 1;
+    }
+
+    .sh2 em {
+      font-style: normal;
+      color: var(--amber);
+    }
+
+    .sdesc {
+      max-width: 580px;
+      font-size: 0.95rem;
+      color: rgba(247, 243, 234, 0.64);
+    }
+
+    .stag {
+      padding-left: 14px;
+      position: relative;
+      letter-spacing: 0.24em;
+      color: rgba(141, 242, 214, 0.9);
+    }
+
+    .stag::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 8px;
+      height: 1px;
+      background: currentColor;
+      transform: translateY(-50%);
+      opacity: 0.7;
+    }
+
+    .dest-grid,
+    .services-grid,
+    .testi-grid,
+    .dest-full-grid,
+    .pkg-grid,
+    .gallery-grid,
+    .reviews-grid {
+      max-width: 1240px;
+    }
+
+    .dest-grid {
+      gap: 14px;
+      padding: 0 20px 24px;
+    }
+
+    .dest-tile,
+    .svc-card,
+    .testi-card,
+    .dfc,
+    .pkg-card,
+    .gallery-cell,
+    .rating-hero,
+    .policy-bar,
+    .faq-item,
+    .contact-left,
+    .contact-right {
+      border-color: rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      box-shadow: 0 18px 44px rgba(0, 0, 0, 0.14);
+    }
+
+    .svc-card,
+    .testi-card,
+    .dfc,
+    .pkg-card,
+    .rating-hero,
+    .policy-bar,
+    .faq-item,
+    .contact-left,
+    .contact-right {
+      background: rgba(9, 24, 34, 0.74);
+      backdrop-filter: blur(18px);
+    }
+
+    .gallery-cell {
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .page-banner {
+      max-width: 1240px;
+      min-height: 420px;
+      margin: 116px auto 0;
+      border-radius: 34px;
+      overflow: hidden;
+    }
+
+    .page-banner-content {
+      padding: 0 36px 38px;
+    }
+
+    .breadcrumb,
+    .pb-sub,
+    .pkg-meta,
+    .dfc-season,
+    .policy-desc,
+    .gallery-caption,
+    .tloc,
+    .faq-a,
+    .ci-val,
+    .footer-brand-p,
+    .footer-copy,
+    .footer-col a,
+    .footer-insta,
+    .contact-left p {
+      color: rgba(247, 243, 234, 0.62);
+    }
+
+    .pkg-badge,
+    .dfc-badge,
+    .trust-tag {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.1);
+      color: var(--white);
+    }
+
+    .contact-layout {
+      max-width: 1240px;
+      min-height: auto;
+      margin: 116px auto 26px;
+      padding: 0 20px 24px;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .contact-left,
+    .contact-right {
+      padding: 54px 40px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .fc {
+      background: rgba(4, 14, 19, 0.5);
+      border-color: rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 14px 16px;
+    }
+
+    .fc:focus {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 4px rgba(141, 242, 214, 0.08);
+    }
+
+    .fsub,
+    .btn-book,
+    .wa-btn {
+      border-radius: 999px;
+    }
+
+    .faq-q {
+      padding: 22px 24px;
+    }
+
+    .footer {
+      padding: 38px 20px 24px !important;
+      border-top: none;
+    }
+
+    .footer-bottom {
+      padding-top: 18px;
+    }
+
+    @media(max-width:1100px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+
+      .hero-panel {
+        max-width: 620px;
+      }
+
+      .hero-highlights {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media(max-width:900px) {
+      body {
+        cursor: auto;
+      }
+
+      body.nav-open {
+        overflow: hidden;
+      }
+
+      #cursor,
+      #cursor-ring {
+        display: none;
+      }
+
+      #nav {
+        top: 10px;
+        width: calc(100% - 20px);
+        height: 72px;
+        padding: 0 12px;
+        border-radius: 22px;
+      }
+
+      .nav-menu-btn {
+        display: flex;
+      }
+
+      .nav-links {
+        display: flex;
+        position: absolute;
+        top: calc(100% + 12px);
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+        padding: 12px;
+        border-radius: 22px;
+        background: rgba(5, 16, 23, 0.92);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition: opacity 0.25s ease, transform 0.25s ease;
+      }
+
+      .nav-links a {
+        width: 100%;
+        text-align: left;
+      }
+
+      body.nav-open .nav-links {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+
+      .nav-wa {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 108px 18px 30px;
+      }
+
+      .hero-content {
+        gap: 22px;
+      }
+
+      .hero-sub {
+        font-size: 0.94rem;
+      }
+
+      .hero-highlights,
+      .hero-proof,
+      .stats-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-showcase {
+        min-height: 300px;
+      }
+
+      .hero-scroll,
+      .hero-slides-dots {
+        display: none;
+      }
+
+      .stats-bar {
+        margin-top: 0;
+        padding: 10px 18px 28px;
+      }
+
+      .dest-grid {
+        padding: 0 18px 22px;
+      }
+
+      .page-banner {
+        min-height: 320px;
+        margin: 90px 12px 0;
+        border-radius: 26px;
+      }
+
+      .page-banner-content {
+        padding: 0 24px 28px;
+      }
+
+      .contact-layout {
+        margin-top: 92px;
+        padding: 0 12px 18px;
+      }
+
+      .contact-left,
+      .contact-right {
+        padding: 34px 22px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+
+    @media(prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 </head>
 
@@ -2140,15 +2923,20 @@
           style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></div>
       <span class="nav-brand">Trip<em>Panther</em></span>
     </div>
-    <nav class="nav-links">
+    <button class="nav-menu-btn" type="button" aria-label="Toggle navigation" aria-expanded="false"
+      onclick="toggleNav()">
+      <span></span>
+      <span></span>
+    </button>
+    <div class="nav-links">
       <a data-page="home" onclick="showPage('home')" class="act">Home</a>
       <a data-page="destinations" onclick="showPage('destinations')">Destinations</a>
       <a data-page="packages" onclick="showPage('packages')">Packages</a>
       <a data-page="gallery" onclick="showPage('gallery')">Gallery</a>
       <a data-page="reviews" onclick="showPage('reviews')">Reviews</a>
       <a data-page="contact" onclick="showPage('contact')">Contact</a>
-    </nav>
-    <button class="nav-wa" onclick="showPage('contact')">📱 WhatsApp Now</button>
+    </div>
+    <button class="nav-wa" onclick="showPage('contact')">Plan My Trip</button>
   </nav>
 
   <!-- ═══════════════════════════════════════════════════════
@@ -2167,21 +2955,69 @@
       <div class="hero-overlay"></div>
 
       <div class="hero-content">
-        <div class="hero-pill">🐆 #WeArePanther · Adventure Awaits ✈️</div>
-        <h1 class="hero-h1">
-          Adventure<br>
-          <span>Awaits</span>
-        </h1>
-        <p class="hero-sub">Discover the world with us — curated group trips and unforgettable mountain journeys from
-          ₹7,000. Ex-Delhi departures every week.</p>
-        <div class="hero-btns">
-          <button class="btn-primary" onclick="showPage('packages')">Explore Trips →</button>
-          <button class="btn-outline" onclick="showPage('destinations')">View Destinations</button>
+        <div class="hero-copy">
+          <div class="hero-pill">Curated departures. Elevated experiences.</div>
+          <div class="hero-eyebrow">Premium mountain journeys for the bold</div>
+          <h1 class="hero-h1">
+            Travel<br>
+            <span>Beyond Ordinary</span>
+          </h1>
+          <p class="hero-sub">TripPanther turns group trips, custom escapes, and Himalayan circuits into a full-blown
+            experience. Strong routes, stylish stays, smooth coordination, and the kind of energy people remember long
+            after the last stop.</p>
+          <div class="hero-btns">
+            <button class="btn-primary" onclick="showPage('packages')">See Signature Trips</button>
+            <button class="btn-outline" onclick="showPage('contact')">Build a Custom Plan</button>
+          </div>
+          <div class="hero-highlights">
+            <div class="hero-highlight">
+              <strong>4.7/5 rating</strong>
+              <span>Traveler-backed reviews across curated mountain departures.</span>
+            </div>
+            <div class="hero-highlight">
+              <strong>From ₹7,000</strong>
+              <span>Accessible packages without sacrificing the visual and on-ground experience.</span>
+            </div>
+            <div class="hero-highlight">
+              <strong>Ex-Delhi weekly</strong>
+              <span>Reliable departures with fast support before, during, and after the trip.</span>
+            </div>
+          </div>
         </div>
+
+        <aside class="hero-panel">
+          <div class="hero-showcase">
+            <img src="d.jpg" alt="TripPanther destination showcase">
+            <div class="hero-showcase-badge">Featured circuit</div>
+            <div class="hero-showcase-copy">
+              <h3>Manali to Kasol</h3>
+              <p>Designed for travelers who want mountain air, night energy, cinematic pit stops, and a trip that feels
+                premium without feeling stiff.</p>
+            </div>
+          </div>
+          <div class="hero-proof">
+            <div class="hero-proof-item">
+              <strong>350+ trips completed</strong>
+              <span>High-volume operations with a boutique feel and close coordination.</span>
+            </div>
+            <div class="hero-proof-item">
+              <strong>4.4K social community</strong>
+              <span>An audience built on repeat travelers, referrals, and live trip energy.</span>
+            </div>
+            <div class="hero-proof-item">
+              <strong>Small-group chemistry</strong>
+              <span>Better pace, better photos, and better memories than crowded generic tours.</span>
+            </div>
+            <div class="hero-proof-item">
+              <strong>Fast custom response</strong>
+              <span>Tell us the destination, vibe, and budget. We shape the route from there.</span>
+            </div>
+          </div>
+        </aside>
       </div>
 
       <div class="hero-scroll">
-        <div class="scroll-bar"></div>Scroll
+        <div class="scroll-bar"></div>Explore
       </div>
       <div class="hero-slides-dots">
         <div class="sdot active" onclick="heroSlide(0)"></div>
@@ -2193,12 +3029,12 @@
 
     <!-- STATS -->
     <div class="stats-bar">
-      <div class="stat-cell"><span class="stat-num">4.7★</span><span class="stat-lbl">Verified Rating (72
-          Reviews)</span></div>
-      <div class="stat-cell"><span class="stat-num">₹7K</span><span class="stat-lbl">Starting Price Ex-Delhi</span>
+      <div class="stat-cell"><span class="stat-num">4.7/5</span><span class="stat-lbl">Verified Traveler Rating</span>
       </div>
-      <div class="stat-cell"><span class="stat-num">350+</span><span class="stat-lbl">Trips Completed</span></div>
-      <div class="stat-cell"><span class="stat-num">4.4K</span><span class="stat-lbl">Instagram Followers</span></div>
+      <div class="stat-cell"><span class="stat-num">Rs 7K</span><span class="stat-lbl">Signature Trips From</span>
+      </div>
+      <div class="stat-cell"><span class="stat-num">350+</span><span class="stat-lbl">Departures Executed</span></div>
+      <div class="stat-cell"><span class="stat-num">4.4K</span><span class="stat-lbl">Community Following</span></div>
     </div>
 
     <!-- DESTINATIONS MOSAIC -->
@@ -3187,21 +4023,42 @@
   <!-- ══════════════ JAVASCRIPT ══════════════ -->
   <script>
     /* ─── CURSOR ─── */
+    document.title = 'TripPanther - Supreme Adventure Travel';
     const cur = document.getElementById('cursor'), curR = document.getElementById('cursor-ring');
-    document.addEventListener('mousemove', e => {
-      cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
-      setTimeout(() => { curR.style.left = e.clientX + 'px'; curR.style.top = e.clientY + 'px'; }, 60);
+    const menuBtn = document.querySelector('.nav-menu-btn');
+    const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+    function toggleNav(force) {
+      const shouldOpen = typeof force === 'boolean' ? force : !document.body.classList.contains('nav-open');
+      document.body.classList.toggle('nav-open', shouldOpen);
+      if (menuBtn) menuBtn.setAttribute('aria-expanded', String(shouldOpen));
+    }
+    if (isCoarsePointer) {
+      if (cur) cur.style.display = 'none';
+      if (curR) curR.style.display = 'none';
+      document.body.style.cursor = 'auto';
+    } else {
+      document.addEventListener('mousemove', e => {
+        cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px';
+        setTimeout(() => { curR.style.left = e.clientX + 'px'; curR.style.top = e.clientY + 'px'; }, 60);
+      });
+      document.querySelectorAll('a,button,.dest-tile,.dfc,.pkg-card,.testi-card,.gallery-cell,.svc-card').forEach(el => {
+        el.addEventListener('mouseenter', () => document.body.classList.add('hov'));
+        el.addEventListener('mouseleave', () => document.body.classList.remove('hov'));
+      });
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') toggleNav(false);
     });
-    document.querySelectorAll('a,button,.dest-tile,.dfc,.pkg-card,.testi-card,.gallery-cell,.svc-card').forEach(el => {
-      el.addEventListener('mouseenter', () => document.body.classList.add('hov'));
-      el.addEventListener('mouseleave', () => document.body.classList.remove('hov'));
-    });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) toggleNav(false);
+    }, { passive: true });
 
     /* ─── NAV SCROLL ─── */
     window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('scrolled', scrollY > 60), { passive: true });
 
     /* ─── PAGES ─── */
     function showPage(n) {
+      toggleNav(false);
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
       document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('act'));
       document.getElementById('page-' + n).classList.add('active');
@@ -3235,6 +4092,7 @@
       sbg.style.backgroundImage = `url('${SLIDES[n]}')`;
       sdots.forEach((d, i) => d.classList.toggle('active', i === n));
     }
+    heroSlide(0);
     setInterval(() => heroSlide((sIdx + 1) % SLIDES.length), 5500);
 
     /* ─── 3D PARTICLE CANVAS ─── */
